@@ -1,0 +1,379 @@
+/*Barvy režimů*/
+:root {
+    --background-color: rgb(230, 230, 230);
+    --text-color: black;
+    --header-footer-bg-color: rgb(163, 163, 163);
+    --button-border-color: rgb(88, 88, 88);
+    --button-border-style: solid;
+    --button-bg-color: var(--background-color);
+    --button-bg-color-hover: rgb(88, 88, 88);
+    --icon-filter: none;
+    --icon-outline-width: 2px;
+    --icon-invert: 1;
+    --icon-outline-color: rgba(0,0,0,0.65);
+    --switch-color: rgba(255,255,255,0.95);
+    --discord-invert: 0;
+}
+
+html.dark {
+    --background-color: rgb(40, 40, 40);
+    --text-color: white;
+    --header-footer-bg-color: rgb(20, 20, 20);
+    --button-border-color: white;
+    --button-border-style: double;
+    --button-bg-color: var(--background-color);
+    --button-bg-color-hover: white;
+    --icon-filter: brightness(0) invert(1);
+    --icon-invert: 0;
+    --icon-outline-color: rgba(255,255,255,0.9);
+    --switch-color: rgba(0,0,0,0.7);
+    --discord-invert: 1;
+}
+
+
+/* Smooth color transitions for theme properties */
+body, header, footer, .box, .box p, a {
+    transition: background-color 420ms ease, color 420ms ease, border-color 420ms ease;
+}
+
+/* Prevent mode button from inheriting transitions or animations */
+#mode, #mode img {
+    transition: none !important;
+}
+
+/* Mode switch radial reveal animation */
+body::before {
+    content: '';
+    position: fixed;
+    left: var(--switch-x, 50%);
+    top: var(--switch-y, 50%);
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 560ms cubic-bezier(.2,.9,.2,1), opacity 420ms ease;
+    background: radial-gradient(circle at center, var(--switch-color) 0%, rgba(0,0,0,0) 40%);
+    border-radius: 50%;
+}
+
+body.theme-switching::before {
+    width: 200vmax;
+    height: 200vmax;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+
+/*!All Around!*/
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    background-color: var(--header-footer-bg-color);
+    padding: 8px;
+}
+
+a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    padding-inline: 10px;
+    padding-top: 10px;
+}
+
+#logo {
+    display: inline;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+img#logo {
+    height: auto;
+    margin-right: 0px;
+}
+
+#mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#discord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#discord img {
+    width: 60px;
+    filter: invert(var(--discord-invert));
+    transition: filter 0.18s ease;
+}
+
+header img {
+    width: 75px;
+}
+
+main {
+    flex-grow: 1
+}
+
+footer{
+    background-color: var(--header-footer-bg-color);
+    display: flex;
+    padding: 8px;
+}
+
+.boxes {
+    padding: 20px;
+}
+
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.box {
+    width: 200px;
+    min-height: 200px;
+    border: 1px solid var(--button-border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-bg-color);
+    transition: background-color 0.3s;
+    position: relative;
+    overflow: visible;
+    transition: background-color 0.25s, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.box:hover {
+    background-color: var(--button-bg-color-hover);
+}
+
+.box > img:not(.icon) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+}
+
+.box p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    color: var(--text-color);
+    position: relative;
+    z-index: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    flex-basis: 180px;
+    flex-shrink: 0;
+    white-space: normal;
+}
+
+h1, h2, h3, p {
+    text-align: center;
+    font-size: 1.5em;
+    display: block;
+    color: var(--text-color);
+}
+
+footer p {
+    margin: 0 auto;
+    text-align: center;
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+#version {
+    display: inline-flex;
+    width: fit-content;
+}
+
+main #version {
+    display: none;
+}
+
+main #version.version-modal {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    z-index: 10000;
+    border: 1px solid var(--button-border-color);
+}
+
+main #version.version-modal button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+main #version.version-modal button:hover {
+    color: var(--button-border-color);
+}
+
+main #version.version-modal table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-color);
+}
+
+main #version.version-modal th,
+main #version.version-modal td {
+    padding: 8px;
+    border: 1px solid var(--button-border-color);
+    color: var(--text-color);
+}
+
+main #version.version-modal th:first-child {
+    width: auto;
+    white-space: nowrap;
+}
+
+main #version.version-modal td:nth-child(2) {
+    width: 100%;
+}
+
+main #version.version-modal td:last-child {
+    width: auto;
+    white-space: nowrap;
+}
+/*!Předměty!*/
+
+/* Small type icon placed at the top-right of each .box */
+.box .icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    z-index: 10000;
+    border-radius: 6px;
+    padding: 2px;
+    background: rgba(255,255,255,0.03);
+    /* Make the icon itself be the opposite of the theme using invert() */
+    filter: invert(var(--icon-invert)) drop-shadow(0 0 2px var(--icon-outline-color)) drop-shadow(0 0 6px var(--icon-outline-color));
+    transition: filter 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+}
+
+/* Hover pop-up that doesn't reflow grid */
+.box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+    z-index: 5;
+}
+
+/*! Version Modal Styles */
+#version:hover {
+    cursor: pointer;
+}
+
+#version-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+#version-modal > div {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid var(--button-border-color);
+}
+
+#version-modal button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+#version-modal button:hover {
+    color: var(--button-border-color);
+}
+
+#version-modal table, th, td {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--button-border-color);
+}
+
+#version-modal th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.box-container a {
+    width: 200px;
+}
+
+#subject {
+    margin: 0px;
+}
+
+span{
+    font-weight: bold;
+    font-size : 1.1em;
+}

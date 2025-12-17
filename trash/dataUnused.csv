@@ -1,0 +1,6 @@
+page,title,image,link,category,type
+index,Český Jazyk,./graphics/placeholder.png,subjects/cjk.html,Obecné předměty,None
+index,Člověk ve společnosti a dějinách,./graphics/placeholder.png,subjects/csd.html,Obecné předměty,None
+index,Informační a komunikační technologie,./graphics/placeholder.png,subjects/ikt.html,Odborné předměty,None
+index,Vývoj webových stránek,./graphics/placeholder.png,subjects/web.html,Odborné předměty,None
+index,Vývoj Aplikací,./graphics/placeholder.png,subjects/vap.html,Odborné předměty,None

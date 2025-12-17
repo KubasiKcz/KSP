@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jakub Vítovec">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../graphics/icons/icon_32.png" type="image/x-icon">
+    <script>
+    (() => {
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+            window.__darkModeImage = "../graphics/icons/darkmode-switch.png";
+        } else {
+            window.__darkModeImage = "../graphics/icons/lightmode-switch.png";
+        }
+    })();
+    </script>
+    <link rel="stylesheet" href="../stylsheet.css">
+    <script src="../scripts/mode.js"></script>
+    <script src="../scripts/script.js"></script>
+    <title>ＫＳＰ - Vývoj webových stránek</title>
+</head>
+<body>
+    <header>
+        <a href="../">
+            <img src="../graphics/logo.png" alt="KSP" id="logo"> <p id="subject">Vývoj webových stránek</p>
+        </a>
+        <div id="header-buttons">
+            <a href="https://discord.com/invite/6e9x2cD9" id="discord" target="_blank" rel="noopener noreferrer">
+                <img src="../graphics/icons/discord.png" alt="Discord">
+            </a>
+            <div id="mode">
+                <img alt="dark mode" id="dark_mode" onclick="mode()">
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="wlcm_msg"> 
+            <h2>Vývoj webových stránek</h2>
+            <p></p>
+        </section>
+        <div class="boxes">
+            <div id='dynamic-content'></div>
+        </div>
+    </main>
+</body>
+</html>

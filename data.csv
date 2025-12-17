@@ -1,0 +1,67 @@
+page,category,title,type,image,link
+
+index,Obecné předměty,Český Jazyk,None,./graphics/subjects/cjk.png,subjects/cjk.html
+index,Obecné předměty,Literatura,None,./graphics/subjects/lit.png,subjects/lit.html
+index,Obecné předměty,Matematika,None,./graphics/subjects/mat.png,subjects/mat.html
+index,Obecné předměty,Fyzika,None,./graphics/subjects/fyz.png,subjects/fyz.html
+index,Obecné předměty,Ekonomie,None,./graphics/subjects/eko.png,subjects/eko.html
+index,Obecné předměty,Člověk ve společnosti a dějinách,None,./graphics/subjects/csd.png,subjects/csd.html
+
+index,Odborné předměty,Počítačové síťe,None,./graphics/subjects/pos.png,subjects/pos.html
+index,Odborné předměty,Technické vybavení,None,./graphics/subjects/tvy.png,subjects/tvy.html
+index,Odborné předměty,Vývoj webových stránek,None,./graphics/subjects/web.png,subjects/web.html
+
+index,Cizí jazyky,Anglický Jazyk,None,./graphics/subjects/anj.png,subjects/anj.html
+index,Cizí jazyky,Německý Jazyk,None,./graphics/subjects/nej.png,subjects/nej.html
+
+index,Ostatní,Ostatní,None,./graphics/subjects/other.png,subjects/other.html
+
+cjk,Sloh,Charakteristika,Notes,./graphics/subjects/specifics/cjk/charakteristika.png,https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B113348a2-66a8-4921-8a06-ca22f7171fb7%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1765836318146&web=1
+cjk,Sloh,Líčení,Notes,./graphics/subjects/specifics/cjk/liceni.png,https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B6f96e07b-f66b-4c4d-a565-a90b6fa611dc%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1765836258522&web=1
+cjk,Lexikologie,Lexikologie - teorie,Notes,./graphics/subjects/specifics/cjk/lexTe.png,https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bc43e9660-a5ef-45e6-b0af-ea26fbcb2688%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1765836394925&web=1
+cjk,Lexikologie,Lexikologie - cvičení,Learn,./graphics/subjects/specifics/cjk/lexCv.png,https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bf905a4d0-54a5-43c1-80f2-cd86624e3f2f%7D&wdOrigin=TEAMS-MAGLEV.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1765836401671&web=1
+
+
+lit,Čítanka,Čítanka1 - v1,Book,./graphics/subjects/specifics/lit/citanka1.png,../files/lit/citanka1.pdf
+lit,Čítanka,Čítanka2 - v2,Book,./graphics/subjects/specifics/lit/citanka2.png,../files/lit/citanka2.pdf
+lit,Příští povinná četba,Jak utvořit referát,Tutorial,./graphics/subjects/specifics/lit/ref.png,https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B9e013ea1-5752-45d2-aa16-f07461056098%7D&wdOrigin=TEAMS-WEB.teamsSdk_ns.rwc&wdExp=TEAMS-TREATMENT&wdhostclicktime=1764884072627&web=1
+lit,Příští povinná četba,Rozbory Knih,Website,./graphics/subjects/specifics/lit/rozbor.png,https://rozbor-dila.cz/seznam-rozboru/
+lit,Příští povinná četba,Příští četba (Romeo a Julie) - kniha,Book,./graphics/subjects/specifics/lit/next.png,https://cetba.spseplzen.cz/
+lit,Příští povinná četba,Příští četba (Romeo a Julie) - audiokniha,Youtube,./graphics/subjects/specifics/lit/next_audio.png,https://youtu.be/wYB44C6VSiQ?t=66
+lit,Příští povinná četba,Příští četba (Hamlet) - kniha,Book,./graphics/subjects/specifics/lit/next2.png,https://cetba.spseplzen.cz/
+lit,Příští povinná četba,Příští četba (Hamlet) - audiokniha,Youtube,./graphics/subjects/specifics/lit/next_audio2.png,https://youtu.be/7-GCKrWbKd4?t=24
+lit,Poznámky,Nejstarší Literatura,Notes,./graphics/subjects/specifics/lit/Nejstarsi_lit.png,../files/lit/Nejstarsi_lit.pdf
+lit,Poznámky,Antika,Notes,./graphics/subjects/specifics/lit/Antika.png,../files/lit/Antika.pdf
+
+mat,Tabulky,Tabulky,Table,./graphics/subjects/specifics/mat/mat_vzorecky.png,../files/mat/mat_vzorecky.pdf
+mat,Pracovní sešit,Pracovní sešit 2 - Výsledky,Key,./graphics/subjects/specifics/mat/ps2.png,../files/mat/ps2vysledky.pdf
+
+fyz,Knihy,Sbírka,Book,./graphics/subjects/specifics/fyz/sbirka.png,../files/fyz/sbirka.pdf
+fyz,Učivo jinak,NEZkreslená věda (Nevyfiltrovaný playlist),Youtube,./graphics/subjects/specifics/fyz/NEZkreslena.png,https://www.youtube.com/watch?v=2FGIeUDeZmk&list=PLqmy0o96fQtBn6aiL5LA-ywdIwMp5yvni
+fyz,Učivo jinak,Základy Elektrotechniky (Nevyfiltrovaný playlist),Youtube,./graphics/subjects/specifics/fyz/ZakEl.png,https://www.youtube.com/watch?v=fM0MiUarinU&list=PL3r1xGSQfP9TBwvTqYEf6E-L9duHQbnir
+
+eko,Poznámky,Poznámky (unupdated),Notes,./graphics/subjects/specifics/eko/poznamky.png,../files/eko/poznamky.pdf
+
+csd,Poznámky,Poznámky - První pololetí,Notes,./graphics/subjects/specifics/csd/poznamky1.png,../files/csd/Obcanka_shrnuti_prvni_pololeti.pdf
+
+pos,Síťařina,Nastavení switche,Tutorial,./graphics/subjects/specifics/pos/switch.png,../files/pos/nas_sw.pdf
+pos,Síťařina,Tabulka IP class C,Table,./graphics/subjects/specifics/pos/vypocetIP.png,../files/pos/vypocetIP.pdf
+pos,Síťařina,Výpočetní tabulka ⇩,Table,./graphics/subjects/specifics/pos/vypocetTab.png,../files/pos/vypocetTab.xlsx
+pos,Cisco akademie,Cisco Akademie,Website,./graphics/subjects/specifics/pos/akademie.png,https://www.netacad.com/courses/ccna-introduction-networks?courseLang=en-US&instance_id=f61deee0-c864-4f8c-88b7-7db39d0ee31e
+
+tvy,Poznámky,prezentace TVY - FULL (unupdated),Notes,./graphics/subjects/specifics/tvy/tvy_prezentace.png,https://vosaspseplzen-my.sharepoint.com/:p:/g/personal/elicarovaanna24_spseplzen_cz/IQCf0hLihajQQq23DB0CttYYAY6knJneUyrUUAKaoD98eXo
+
+web,Vytváření webu,W3Schools,Website,./graphics/subjects/specifics/web/w3schools.png,https://www.w3schools.com/
+web,Vytváření webu,W3C Validator,Website,./graphics/subjects/specifics/web/w3c.png,https://validator.w3.org/
+web,Vytváření webu,awesome-webdev-resources - Github Repo,Website,./graphics/subjects/specifics/web/awr.png,https://github.com/ItzAshOffcl/awesome-webdev-resources/
+
+anj,Pracovní sešit,Pracovní sešit Intermediate - Výsledky,Key,./graphics/subjects/specifics/anj/workbookp.png,../files/anj/anj_ps_vysledkyp.pdf
+anj,Testy,Testy Intermediate - Výsledky,Files,./graphics/subjects/specifics/anj/testsp.png,../files/anj/testy_anjp
+anj,Pracovní sešit,Pracovní sešit Pre-Intermediate - Výsledky,Key,./graphics/subjects/specifics/anj/workbookr.png,../files/anj/anj_ps_vysledkyr.pdf
+anj,Testy,Testy Pre-Intermediate - Výsledky,Files,./graphics/subjects/specifics/anj/testsr.png,../files/anj/testy_anjr
+
+nej,Pracovní sešit,Pracovní sešit/učebnice - Výsledky (po přihlášení a zadání kódu),Book,./graphics/subjects/specifics/nej/ps.png,https://www.mcourser.cz/klett/Direkt_interaktiv_1_CZ
+
+other,AI,Gemini PRO Free,Website,./graphics/subjects/other/Gemini.png,https://gemini.google/cz/students/?hl=cs
+other,Visual Code,VS - Portable (protože škola zakázala pluginy),Tutorial,./graphics/subjects/other/vscode.png,https://code.visualstudio.com/docs/editor/portable
+other,Visual Code,VS - Best Plugins,Document,./graphics/subjects/other/BestPlugins.png,../files/other/Best_Plugins.pdf

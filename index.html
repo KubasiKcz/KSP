@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jakub Vítovec">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./graphics/icons/icon_32.png" type="image/x-icon">
+    <script>
+    (() => {
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+            window.__darkModeImage = "./graphics/icons/darkmode-switch.png";
+        } else {
+            window.__darkModeImage = "./graphics/icons/lightmode-switch.png";
+        }
+    })();
+    </script>
+    <link rel="stylesheet" href="./stylsheet.css">
+    <script src="./scripts/mode.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/index.js"L></script>
+    <title>ＫＳＰ</title>
+</head>
+<body>
+    <header>
+        <a onclick="wtf()">
+            <img src="./graphics/logo.png" alt="KSP" id="logo">
+        </a>
+        <div id="header-buttons">
+            <a href="https://discord.com/invite/6e9x2cD9" id="discord" target="_blank" rel="noopener noreferrer">
+                <img src="./graphics/icons/discord.png" alt="Discord">
+            </a>
+            <div id="mode">
+                <img alt="dark mode" id="dark_mode" onclick="mode()">
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="wlcm_msg">
+            <h2>VÍTEJ</h2>
+            <p>Hledej co potřebuješ, neboj se poslat feedback na discord</p>
+        </section>
+        <section class="boxes"> <!-- Nadává že neí heading (validator mi nadává) -->
+            <div id='dynamic-content'></div>
+        </section>
+    <div id="version">
+        <h1>CHANGELOG</h1>
+        <button>X</button>
+        <table>
+            <tr>
+                <th>Verze</th><th>Změny</th><th>Datum</th>
+            </tr>
+            <tr>
+                <th>v1.0.3</th><td><span>Code FIX</span><br>
+                    Božo potahal<br>
+                    Celké překopání filesystemu, JS, HTML, CSV, (plánované je i CSS)<br>
+                    Zmenšení OBROVSKEJ obrázků<br>
+                    Obecné předměty: <br>
+                    - Český jazyk ~ Změna ikonek<br>
+                    - Člověk ve společnosti a dějinách ~ Vložení poznámek<br>
+                    Ostatní: <br>
+                    - AI Gemini free<br>
+                    - VS Portable<br>
+                    - VS Pluginy</td>
+                    <td>17.12.2025</td>
+            </tr>
+            <tr>
+                <th>v1.0.2</th><td><span>Add hotfix</span> <br> <!--! v1.0.2 -->
+                    Přesunutí Nj & Aj do Cizích jazyků
+                    Obecné předměty: <br>
+                    - Český jazyk ~ Naházené věci z Teams <br>
+                    - Fyzika ~ Základy Elektrotechniky, odstranění učebnice (nedostupná) <br>
+                    Odborné předměty: <br>
+                    - Počítačové sítě ~ přidáná výpočetní tabulka pro výpočet IP <br>
+                    Cizí jazyky: <br>
+                    -Anglický jazyk ~ Přidání červené učebnice + testy
+                </td>
+                    <td>15.12.2025</td>
+            </tr>
+            <tr>   <!--! v1.0.1 -->
+                <th>v1.0.1</th>
+                <td><span>Image hotfix</span><br>
+                    Oprava type png's(velká malá písmena)<br>
+                    Odborné předměty: 
+                    <br>- Počítačové Sítě ~ Přidání zapomenuté Cisco Akademie + tabulka na výpočet IP <br>
+                    PLÁNOVÁNÍ PŘEKOPÁNÍ JS KOMPLET</td>
+                    <td>09.12.2025</td>
+            </tr>
+            <tr>  <!--! v1.0.0 -->
+                <th>v1.0.0</th>
+                <td><span>Initial Page</span><br>
+                    Obecné předměty:<br
+                    >- Literatura ~ Naházené věci z Teams, četba na příšte<br>
+                    - Matematika ~ Výsledky z PS, Vzorečky pro goniometrii<br>
+                    - Fyzika ~ Sbírka a Učebnice, NEZkreslená věda<br>
+                    - Ekonomie ~ Poznámky ze sešitu<br>
+                    - Anglický Jazyk ~ Řešení PS a Testů<br>
+                     Německý Jazyk ~ Řešení PS<br>
+                    Odborné předměty: <br>
+                    - Počítačové Sítě ~ Základní nastavení switche, Cisco Akademie<br>
+                    - Technické vybavení ~ Prezentace TVY FULL [NEAKTUALIZOVANÁ]</td>
+                    <td>09.12.2025</td>
+            </tr>
+        </table>
+    </div>
+    </main>
+    <footer>
+        <p>KSP - Nic co se zde nachází, neberu za své.</p><br>
+        <div id="version" onclick="show()"> <!-- Tu duplicitní id (nechci rozjebat js, idk what to do :()-->
+            <p>v<p title="version release">1.</p><p title="edit">0.</p><p title="hotfix">3</p></p> <!-- Nevychází <p> tagy-->
+        </div>
+        <p>Bylo použito Generativní AI (bohužel).</p>
+    </footer>
+</body>
+</html>
