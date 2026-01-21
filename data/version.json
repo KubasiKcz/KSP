@@ -1,5 +1,13 @@
 [
     {
+        "version": "v1.1.1",
+        "date": "21.01.2026",
+        "badge": "Božen's curse",
+        "changes": [
+            "v data.json bylo všude o tečku navíc"
+        ]
+    },
+    {
         "version": "v1.1.0",
         "date": "21.01.2026",
         "badge": "JSON Rework",

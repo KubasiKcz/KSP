@@ -114,7 +114,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/lit/citanka1.png",
-                                        "url": "../files/2_AVAS/lit/citanka1.pdf"
+                                        "url": "./files/2_AVAS/lit/citanka1.pdf"
                                     },
                                     {
                                         "name": "Čítanka 2 - v2",
@@ -123,7 +123,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/lit/citanka2.png",
-                                        "url": "../files/2_AVAS/lit/citanka2.pdf"
+                                        "url": "./files/2_AVAS/lit/citanka2.pdf"
                                     }
                                 ]
                             },
@@ -198,7 +198,7 @@
                                         "source": "Matasova",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/lit/Nejstarsi_lit.png",
-                                        "url": "../files/2_AVAS/lit/Nejstarsi_lit.pdf"
+                                        "url": "./files/2_AVAS/lit/Nejstarsi_lit.pdf"
                                     },
                                     {
                                         "name": "Antika",
@@ -207,7 +207,7 @@
                                         "source": "Matasova",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/lit/Antika.png",
-                                        "url": "../files/2_AVAS/lit/Antika.pdf"
+                                        "url": "./files/2_AVAS/lit/Antika.pdf"
                                     },
                                     {
                                         "name": "Středověk",
@@ -216,7 +216,7 @@
                                         "source": "Matasova",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/lit/Stredovek.png",
-                                        "url": "../files/2_AVAS/lit/Stredovek.pdf"
+                                        "url": "./files/2_AVAS/lit/Stredovek.pdf"
                                     }
                                 ]
                             }
@@ -238,7 +238,7 @@
                                         "source": "Jack0b",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/mat/mat_vzorecky.png",
-                                        "url": "../files/2_AVAS/mat/mat_vzorecky.pdf"
+                                        "url": "./files/2_AVAS/mat/mat_vzorecky.pdf"
                                     }
                                 ]
                             },
@@ -253,7 +253,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/mat/ps2.png",
-                                        "url": "../files/2_AVAS/mat/ps2vysledky.pdf"
+                                        "url": "./files/2_AVAS/mat/ps2vysledky.pdf"
                                     }
                                 ]
                             }
@@ -275,7 +275,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/fyz/sbirka.png",
-                                        "url": "../files/2_AVAS/fyz/sbirka.pdf"
+                                        "url": "./files/2_AVAS/fyz/sbirka.pdf"
                                     }
                                 ]
                             },
@@ -321,7 +321,7 @@
                                         "source": "Jack0b",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/eko/poznamky.png",
-                                        "url": "../files/2_AVAS/eko/poznamky.pdf"
+                                        "url": "./files/2_AVAS/eko/poznamky.pdf"
                                     },
                                     {
                                         "name": "Poznámky - druhé polotetí",
@@ -330,7 +330,7 @@
                                         "source": "Benny",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/eko/poznamky2.png",
-                                        "url": "../files/2_AVAS/eko/poznamky2.pdf"
+                                        "url": "./files/2_AVAS/eko/poznamky2.pdf"
                                     }
                                 ]
                             }
@@ -352,7 +352,7 @@
                                         "source": "Anne",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/csd/poznamky1.png",
-                                        "url": "../files/2_AVAS/csd/Obcanka_shrnuti_prvni_pololeti.pdf"
+                                        "url": "./files/2_AVAS/csd/Obcanka_shrnuti_prvni_pololeti.pdf"
                                     }
                                 ]
                             }
@@ -380,7 +380,7 @@
                                         "source": "Jack0b",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/ikt/databaze.png",
-                                        "url": "../files/2_AVAS/ikt/databaze.pdf"
+                                        "url": "./files/2_AVAS/ikt/databaze.pdf"
                                     }
                                 ]
                             }
@@ -402,7 +402,7 @@
                                         "source": "Jack0b",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/pos/switch.png",
-                                        "url": "../files/2_AVAS/pos/nas_sw.pdf"
+                                        "url": "./files/2_AVAS/pos/nas_sw.pdf"
                                     },
                                     {
                                         "name": "Tabulka IP class C",
@@ -411,7 +411,7 @@
                                         "source": "Jack0b",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/pos/vypocetIP.png",
-                                        "url": "../files/2_AVAS/pos/vypocetIP.pdf"
+                                        "url": "./files/2_AVAS/pos/vypocetIP.pdf"
                                     },
                                     {
                                         "name": "Výpočetní tabulka (overflow issue) ⭳",
@@ -420,7 +420,7 @@
                                         "source": "Jack0b",
                                         "ai": "Pomoc při vzorcích",
                                         "image": "./graphics/subjects/specifics/pos/vypocetTab.png",
-                                        "url": "../files/2_AVAS/pos/vypocetTab.xlsx"
+                                        "url": "./files/2_AVAS/pos/vypocetTab.xlsx"
                                     }
                                 ]
                             },
@@ -503,7 +503,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/anj/workbookp.png",
-                                        "url": "../files/2_AVAS/anj/anj_ps_vysledkyp.pdf"
+                                        "url": "./files/2_AVAS/anj/anj_ps_vysledkyp.pdf"
                                     },
                                     {
                                         "name": "PS Pre-Interm. - Výsl.",
@@ -512,7 +512,7 @@
                                         "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/anj/workbookr.png",
-                                        "url": "../files/2_AVAS/anj/anj_ps_vysledkyr.pdf"
+                                        "url": "./files/2_AVAS/anj/anj_ps_vysledkyr.pdf"
                                     }
                                 ]
                             },
@@ -599,7 +599,7 @@
                         "source": "Jack0b",
                         "ai": "Žádné",
                         "image": "./graphics/subjects/other/BestPlugins.png",
-                        "url": "../files/2_AVAS/other/Best_Plugins.pdf"
+                        "url": "./files/2_AVAS/other/Best_Plugins.pdf"
                     }
                 ]
             }
