@@ -1,4 +1,4 @@
-function mode() { //! Dark mode [Božo]
+function mode() {
     const root = document.documentElement;
     const img = document.querySelector("#dark_mode");
 
@@ -11,14 +11,14 @@ function mode() { //! Dark mode [Božo]
         if (page === "index") {
             img.src = "./graphics/icons/darkmode-switch.png";
         } else {
-            img.src = "../graphics/icons/darkmode-switch.png";
+            img.src = "./graphics/icons/darkmode-switch.png";
         }
     } else {
         localStorage.setItem("theme", "light");
         if (page === "index") {
             img.src = "./graphics/icons/lightmode-switch.png";
         } else {
-            img.src = "../graphics/icons/lightmode-switch.png";
+            img.src = "./graphics/icons/lightmode-switch.png";
         }
     }
 }
