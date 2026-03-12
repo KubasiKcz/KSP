@@ -1,5 +1,24 @@
 [
     {
+        "version": "v2.0.0",
+        "date": "12.03.2026",
+        "badge": "Revive?",
+        "changes":[
+            "Nový název (ale git asi necham idk)",
+            "Předělaná grafika na CSD",
+            "Nové sources ikonky",
+            "Ikonka pro prezentaci",
+            "Nová ikonka pro ostatní",
+            "Error system (placeholder.png)",
+            "Replace placeholder.png",
+            "Odstranění zbytečného kódu",
+            "Obecné předměty:",
+            "- Ekonomie ~ Nahrané nové poznámky (+ přejmenování starých)",
+            "Ostatní:",
+            "- Odstranění best plugins (nefunguje a stejně ve škole nepovolí)"
+        ]
+    },
+    {
         "version": "v1.1.1",
         "date": "21.01.2026",
         "badge": "Božen's curse",

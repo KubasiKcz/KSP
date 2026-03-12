@@ -24,7 +24,7 @@ const title_messages = [
 
 let titleTimeoutId = null;
 let titleChanged = false;
-let currentSectionTitle = "ＫＳＰ"; 
+let currentSectionTitle = "vočko"; 
 
 const rnd = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -161,11 +161,13 @@ function renderGridItems(items, container, groupIndex) {
         const wrapper = document.createElement('div');
         wrapper.className = 'item-wrapper';
         
-        // Box
+// Box
         let box;
         if (item.type === 'folder' || item.type === 'group') {
-            box = document.createElement('div');
-            box.onclick = () => {
+            box = document.createElement('a');
+            box.href = '#vocko';
+            box.onclick = (scrl) => {
+                scroll(scrl);
                 const newPath = [...currentPath];
                 if (groupIndex !== null) newPath.push(groupIndex);
                 newPath.push(localIndex);
@@ -190,13 +192,7 @@ function renderGridItems(items, container, groupIndex) {
             bgImg.alt = item.name;
             bgImg.className = 'box-bg'; 
             bgImg.onerror = function() {
-                this.style.display = 'none';
-                const icon = document.createElement('img');
-                icon.src = './graphics/icons/folder.png'; 
-                icon.style.width = "64px";
-                icon.style.height = "64px";
-                icon.style.opacity = "0.5";
-                box.appendChild(icon);
+                this.src = './graphics/placeholder.png';
             }
             box.appendChild(bgImg);
         }
@@ -210,7 +206,7 @@ function renderGridItems(items, container, groupIndex) {
             typeIcon.className = 'badge-icon icon-type'; 
             
             typeIcon.onerror = function() { 
-                this.style.display = 'none'; 
+                this.src = './graphics/placeholder.png'; 
             };
             
             box.appendChild(typeIcon);
@@ -225,7 +221,7 @@ function renderGridItems(items, container, groupIndex) {
             if (item.ai) tooltipLines.push(`AI: ${item.ai}`)            
             infoIcon.title = tooltipLines.join("\n");
             infoIcon.onerror = function() {
-                this.style.display = 'none';
+                this.src = './graphics/placeholder.png';
             };
             box.appendChild(infoIcon);
         }

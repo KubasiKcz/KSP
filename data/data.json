@@ -315,7 +315,7 @@
                                 "type": "group",
                                 "children": [
                                     {
-                                        "name": "Poznámky - první pololetí",
+                                        "name": "Poznámky - základ",
                                         "type": "link",
                                         "icon": "Notes",
                                         "source": "Jack0b",
@@ -324,13 +324,22 @@
                                         "url": "./files/2_AVAS/eko/poznamky.pdf"
                                     },
                                     {
-                                        "name": "Poznámky - druhé polotetí",
+                                        "name": "Poznámky - pracovní poměr",
                                         "type": "link",
                                         "icon": "Notes",
                                         "source": "Benny",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/eko/poznamky2.png",
                                         "url": "./files/2_AVAS/eko/poznamky2.pdf"
+                                    },
+                                    {
+                                        "name": "Poznámky - zaměstnání ZKOUŠENÍ",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Anne",
+                                        "ai": "Žádné",
+                                        "image": "./graphics/subjects/specifics/eko/poznamky3.png",
+                                        "url": "./files/2_AVAS/eko/poznamky3.pdf"
                                     }
                                 ]
                             }
@@ -381,6 +390,15 @@
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/ikt/databaze.png",
                                         "url": "./files/2_AVAS/ikt/databaze.pdf"
+                                    },
+                                    {
+                                        "name": "SQL - poznámky",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "image": "./graphics/subjects/specifics/ikt/SQL.png",
+                                        "url": "./files/2_AVAS/ikt/SQL.pdf"
                                     }
                                 ]
                             }
@@ -472,7 +490,7 @@
                                         "name": "Github webdev-resources",
                                         "type": "link",
                                         "icon": "Website",
-                                        "source": "ItzAshOffcl",
+                                        "source": "",
                                         "ai": "Žádné",
                                         "image": "./graphics/subjects/specifics/web/awr.png",
                                         "url": "https://github.com/ItzAshOffcl/awesome-webdev-resources/"
@@ -555,7 +573,7 @@
                                         "name": "Klett - Učebnice",
                                         "type": "link",
                                         "icon": "Key",
-                                        "source": "Klett",
+                                        "source": "",
                                         "ai": "",
                                         "image": "./graphics/subjects/specifics/nej/ps.png",
                                         "url": "https://www.mcourser.cz/klett/Direkt_interaktiv_1_CZ"
@@ -571,35 +589,20 @@
     {
         "name": "Ostatní",
         "type": "folder",
-        "image": "./graphics/subjects/other.png",
+        "image": "./graphics/folder/other.png",
         "children": [
             {
                 "name": "AI",
                 "type": "group",
                 "children": [
                     {
-                        "name": "Gemini PRO",
+                        "name": "Gemini PRO + 2TB",
                         "type": "link",
-                        "icon": "ai",
+                        "icon": "Website",
                         "source": "SPSE",
                         "ai": "Full (překvapivě)",
                         "image": "./graphics/subjects/other/Gemini.png",
                         "url": "https://gemini.google/cz/students/?hl=cs"
-                    }
-                ]
-            },
-            {
-                "name": "Visual Code",
-                "type": "group",
-                "children": [
-                    {
-                        "name": "VS Code Plugins (NEXT UPDATE)",
-                        "type": "link",
-                        "icon": "Document",
-                        "source": "Jack0b",
-                        "ai": "Žádné",
-                        "image": "./graphics/subjects/other/BestPlugins.png",
-                        "url": "./files/2_AVAS/other/Best_Plugins.pdf"
                     }
                 ]
             }

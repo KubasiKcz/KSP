@@ -19,12 +19,12 @@
     <script src="./scripts/mode.js"></script>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/index.js"></script>
-    <title>ＫＳＰ</title>
+    <title>vočko</title>
 </head>
 <body>
     <header>
-        <a onclick="wtf()">
-            <img src="./graphics/logo.png" alt="KSP" id="logo">
+        <a onclick="wtf()" id="vocko">
+            <h1 id="logo">vočko<span id="blinking">_</span></h1>
         </a>
         <div id="header-buttons">
             <div id="search" style="display: none;">
@@ -33,9 +33,6 @@
                     <input id="bar" type="text" placeholder="NEFACHA, NEPOUŽÍVAT">
                 </form>
             </div>
-            <a id="discord" href="https://discord.gg/e7urGyt5FX" target="_blank" rel="noopener noreferrer">
-                <img src="./graphics/icons/discord.png" alt="Discord">
-            </a>
             <div id="mode">
                 <img alt="dark mode" id="dark_mode" onclick="mode()">
             </div>
@@ -48,11 +45,11 @@
         </section>
         <div id="help">
             <h1>Nápověda</h1>
-            <button onclick="closeHelp()">X</button>
+            <button onclick="closeHelp()">✖</button>
             <div id="help-content">
-                <p>Vítejte na KSP!</p>
-                <p>Pro upload/nahrání nových poznámek napište na discord (odkaz v headeru)</p>
-                <p>Všichni budou rádi když přispějete ruku k dílu</p>
+                <p>Vítejte na vočku!</p>
+                <p>Pro upload/edit poznámek vytvořtě <a href="https://github.com/KubasiKcz/KSP/issues" id="issues">issue na githubu</a></p>
+                <p>Všichni budou rádi když přídáte ruku k dílu</p>
             </div>
         </div>
         <div id="version" style="display: none;"> <h1>CHANGELOG</h1>
@@ -62,7 +59,7 @@
     </main>
     <footer>
         <div id="footer_txt">
-            <p>KSP - Veškeré položky na webu nejsou prací KSP</p>
+            <p>vočko - Veškeré položky na webu nejsou prací vočka, ale komunity</p>
             <p id="ver_nmr" onclick=changelog()>Načítám verzi...</p>
             <p>Bylo použito Generativní AI (bohužel).</p>
         </div>
