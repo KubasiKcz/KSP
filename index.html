@@ -5,66 +5,121 @@
     <meta name="author" content="ADZIP">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./graphics/icons/icon_32.png" type="image/x-icon">
-    <script>
-    (() => {
-        if (localStorage.getItem("theme") === "dark") {
-            document.documentElement.classList.add("dark");
-            window.__darkModeImage = "./graphics/icons/darkmode-switch.png";
-        } else {
-            window.__darkModeImage = "./graphics/icons/lightmode-switch.png";
-        }
-    })();
-    </script>
-    <link rel="stylesheet" href="./stylsheet.css">
+
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/components.css">
     <script src="./scripts/mode.js"></script>
-    <script src="./scripts/script.js"></script>
     <script src="./scripts/index.js"></script>
     <title>vočko</title>
 </head>
 <body>
     <header>
-        <a onclick="wtf()" id="vocko">
-            <h1 id="logo">vočko<span id="blinking">_</span></h1>
+        <a onclick="handleLogoClick()" id="vocko">
+            <h1 id="logo" class="header-logo">
+                <span class="type-logo">vočko</span>
+                <span id="blinking">_</span>
+            </h1>
         </a>
         <div id="header-buttons">
-            <div id="search" style="display: none;">
+            <div id="search">
                 <img src="./graphics/icons/search.png" alt="search icon">
-                <form action=search.php method="post">
-                    <input id="bar" type="text" placeholder="NEFACHA, NEPOUŽÍVAT">
+                <form onsubmit="return false;">
+                    <input id="bar" type="text" placeholder="Hledat...">
                 </form>
             </div>
             <div id="mode">
                 <img alt="dark mode" id="dark_mode" onclick="mode()">
             </div>
-
         </div>
     </header>
     <main>
+        <div id="boot-screen">
+            <div class="eye-container" id="boot-eye">
+                <img src="./graphics/animated/visions-out.png" alt="eye" class="eye-out">
+                <img src="./graphics/animated/visions-in.png" alt="pupil" class="eye-pupil">
+            </div>
+            <h1 id="boot-screen-logo">
+                <span id="boot-screen-typing">vočko</span>
+                <span id="blinking-boot">_</span>
+            </h1>
+            <p id="boot-screen-text">welcome</p>
+        </div>
+
+        <div id="breadcrumbs"></div>
+
         <section class="boxes">
             <div id="dynamic-content"></div>
         </section>
-        <div id="help">
+
+        <!-- Modals and Overlay -->
+        <div class="modal-overlay" id="modal-overlay"></div>
+
+        <div id="help" class="modal">
+            <button class="close-btn" onclick="closeModal('help')">✖</button>
             <h1>Nápověda</h1>
-            <button onclick="closeHelp()">✖</button>
             <div id="help-content">
-                <p>Vítejte na vočku!</p>
-                <p>Pro upload/edit poznámek vytvořtě <a href="https://github.com/KubasiKcz/KSP/issues" id="issues">issue na githubu</a></p>
-                <p>Všichni budou rádi když přídáte ruku k dílu</p>
+                <p><b>🗂️ Navigace</b><br>
+                Klikni na složku → dostaneš se dovnitř. Zpět se vrátíš přes <b>drobečkovou navigaci</b> (lišta nahoře) nebo tlačítko <b>← Zpět</b>.</p>
+
+                <p><b>🔍 Hledání</b><br>
+                Vyhledávací lišta prohledává <b>celou databázi</b> najednou — nemusíš být v konkrétní složce.</p>
+
+                <p><b>🏷️ Ikonky na kartičkách</b><br>
+                <b>Vpravo nahoře</b> — typ materiálu (poznámky, prezentace, video...)<br>
+                <b>Vlevo nahoře</b> — zdroj / autor. <i>Najeď myší</i> pro tooltip s informacemi o AI.</p>
+
+                <p><b>📼 [LOST MEDIA]</b><br>
+                Materiál existuje v databázi, ale soubor není dostupný (byl smazán, nebo není nahrán do repa)<br>
+                Pokud ho máš, <b><a href="#" onclick="openModal('upload'); return false;">pošli ho sem</a></b> — zachráníš archiv!</p>
+
+                <hr style="border-color: rgba(255,255,255,0.15); margin: 12px 0;">
+
+                <p><b>➕ Chybí ti něco?</b><br>
+                <b><a href="#" onclick="openModal('upload'); return false;">Zažádej o nahrání materiálu</a></b></p>
+
+                <p style="opacity: 0.5; font-size: 0.85em; margin-top: 12px;">Tip: <kbd>Esc</kbd> zavře jakýkoli dialog.</p>
             </div>
         </div>
-        <div id="version" style="display: none;"> <h1>CHANGELOG</h1>
-            <button onclick="document.getElementById('version').classList.remove('version-modal')">X</button>
+
+        <div id="version" class="modal"> 
+            <button class="close-btn" onclick="closeModal('version')">✖</button>
+            <h1>CHANGELOG</h1>
             <table></table>
+        </div>
+
+        <div id="upload" class="modal">
+            <button class="close-btn" onclick="closeModal('upload')">✖</button>
+            <h2>Žádost o Nahrání Materiálu</h2>
+            <form id="upload-form">
+                <input type="text" id="user-website" name="user-website" autocomplete="off" tabindex="-1">
+                
+                <select id="up-action" class="send-input" required>
+                    <option value="UPLOAD">Nahrát nový materiál (UPLOAD)</option>
+                    <option value="EDIT">Upravit existující (EDIT)</option>
+                    <option value="REMOVE">Smazat existující (REMOVE)</option>
+                </select>
+                
+                <input type="text" id="up-author" placeholder="Vaše jméno (nepovinné)" class="send-input">
+                <input type="url" id="up-pfp" placeholder="URL k Vaší pfp (doporučené u prvního nahrání)" class="send-input">
+                <input type="text" id="up-title" placeholder="Název materiálu" class="send-input" required>
+                <input type="text" id="up-link" placeholder="Odkaz na materiál (Google Drive, OneDrive, odkaz na dokument...)" class="send-input" required>
+                
+                <textarea id="up-note" placeholder="Poznámka" class="send-input send-textarea"></textarea>
+                
+                <button type="submit" class="send-btn">Odeslat</button>
+                <p id="upload-status" class="status-msg"></p>
+            </form>
         </div>
     </main>
     <footer>
         <div id="footer_txt">
             <p>vočko - Veškeré položky na webu nejsou prací vočka, ale komunity</p>
-            <p id="ver_nmr" onclick=changelog()>Načítám verzi...</p>
+            <p id="ver_nmr" onclick="openModal('version')">Načítám verzi...</p>
             <p>Bylo použito Generativní AI (bohužel).</p>
         </div>
         <div id="footer_btns">
-            <button id="help" onclick=help()><img src="./graphics/icons/help.png" alt="Help"></button>
+            <button id="help" onclick="openModal('help')"><img src="./graphics/icons/help.png" alt="Help"></button>
             <button id="github" onclick="github_redirect()"><img src="./graphics/icons/github.png" alt="Github"></button>
         </div>
     </footer>

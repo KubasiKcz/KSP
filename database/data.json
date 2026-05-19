@@ -1,0 +1,893 @@
+[
+    {
+        "name": "AVAS - První ročník",
+        "type": "folder",
+        "image": "./graphics/folder/1_AVAS.png",
+        "tags": "avas - první ročník",
+        "short": "1_AVAS",
+        "children": [
+            {
+                "name": "Odborné předměty",
+                "type": "group",
+                "tags": "avas - první ročník, odborné předměty",
+                "children": [
+                    {
+                        "name": "Technické vybavení",
+                        "type": "folder",
+                        "tags": "avas - první ročník, odborné předměty, technické vybavení",
+                        "short": "tvy",
+                        "children": [
+                            {
+                                "name": "Poznámky",
+                                "type": "group",
+                                "tags": "avas - první ročník, odborné předměty, technické vybavení, poznámky",
+                                "children": [
+                                    {
+                                        "name": "Prezentace TVY",
+                                        "type": "link",
+                                        "icon": "Presentation",
+                                        "source": "TVYgroup1",
+                                        "ai": "Žádné",
+                                        "tags": "avas - první ročník, odborné předměty, technické vybavení, poznámky, prezentace tvy",
+                                        "file": "tvy_prezentace.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "AVAS - Druhý ročník",
+        "type": "folder",
+        "short": "2_AVAS",
+        "image": "./graphics/folder/2_AVAS.png",
+        "tags": "avas - druhý ročník",
+        "children": [
+            {
+                "name": "Obecné předměty",
+                "type": "group",
+                "tags": "avas - druhý ročník, obecné předměty",
+                "children": [
+                    {
+                        "name": "Český Jazyk",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, obecné předměty, český jazyk",
+                        "short": "cjk",
+                        "children": [
+                            {
+                                "name": "Sloh",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, český jazyk, sloh",
+                                "children": [
+                                    {
+                                        "name": "Charakteristika [LOST MEDIA]",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "url": "https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B113348a2-66a8-4921-8a06-ca22f7171fb7%7D",
+                                        "tags": "avas - druhý ročník, obecné předměty, český jazyk, sloh, charakteristika",
+                                        "file": "charakteristika"
+                                    },
+                                    {
+                                        "name": "Líčení [LOST MEDIA]",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "url": "https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B6f96e07b-f66b-4c4d-a565-a90b6fa611dc%7D",
+                                        "tags": "avas - druhý ročník, obecné předměty, český jazyk, sloh, líčení",
+                                        "file": "liceni"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Lexikologie",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, český jazyk, lexikologie",
+                                "children": [
+                                    {
+                                        "name": "Teorie",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "image": "./graphics/subjects/2_AVAS/cjk/lexTe.png",
+                                        "tags": "avas - druhý ročník, obecné předměty, český jazyk, lexikologie, teorie",
+                                        "file": "Lexikologie_teorie.pdf"
+                                    },
+                                    {
+                                        "name": "Cvičení [LOST MEDIA]",
+                                        "type": "link",
+                                        "icon": "Learn",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "url": "https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Bf905a4d0-54a5-43c1-80f2-cd86624e3f2f%7D",
+                                        "tags": "avas - druhý ročník, obecné předměty, český jazyk, lexikologie, cvičení",
+                                        "file": "lexCv"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Literatura",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, obecné předměty, literatura",
+                        "short": "lit",
+                        "children": [
+                            {
+                                "name": "Čítanka",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, literatura, čítanka",
+                                "children": [
+                                    {
+                                        "name": "Čítanka 1 - v1",
+                                        "type": "link",
+                                        "icon": "Book",
+                                        "source": "",
+                                        "ai": "",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, čítanka, čítanka 1 - v1",
+                                        "file": "citanka1.pdf"
+                                    },
+                                    {
+                                        "name": "Čítanka 1 - v2",
+                                        "type": "link",
+                                        "icon": "Book",
+                                        "source": "",
+                                        "ai": "",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, čítanka, čítanka 2 - v2",
+                                        "file": "citanka2.pdf"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Poznámky",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky",
+                                "children": [
+                                    {
+                                        "name": "Nejstarší Literatura",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, nejstarší literatura",
+                                        "file": "Nejstarsi_lit.pdf"
+                                    },
+                                    {
+                                        "name": "Antika",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, antika",
+                                        "file": "Antika.pdf"
+                                    },
+                                    {
+                                        "name": "Středověk",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, středověk",
+                                        "file": "Stredovek.pdf"
+                                    },
+                                    {
+                                        "name": "Baroko",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, baroko",
+                                        "file": "Baroko.pdf"
+                                    },
+                                    {
+                                        "name": "Klasicismus, osvícenství, preromantismus",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, klasicismus, osvícenství, preromantismus",
+                                        "file": "Klasicismus_osvicenstvi_preromantismus.pdf"
+                                    },
+                                    {
+                                        "name": "Národní obrození",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, poznámky, národní obrození",
+                                        "file": "Narodni_obrozeni.pdf"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Referát",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, referát",
+                                "children": [
+                                    {
+                                        "name": "Jak utvořit referát",
+                                        "type": "link",
+                                        "icon": "Tutorial",
+                                        "source": "Matasova",
+                                        "ai": "Žádné",
+                                        "url": "https://vosaspseplzen.sharepoint.com/:w:/r/sites/matasova_CJKaLIV_2H_2025/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B9e013ea1-5752-45d2-aa16-f07461056098%7D",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, referát, jak utvořit referát",
+                                        "file": "ref"
+                                    },
+                                    {
+                                        "name": "Rozbory Knih",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://rozbor-dila.cz/seznam-rozboru/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, referát, rozbory knih",
+                                        "file": "rozbor"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Online knihy",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy",
+                                "children": [
+                                    {
+                                        "name": "Biblické příběhy (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, biblické příběhy (kniha)",
+                                        "file": "biblicke"
+                                    },
+                                    {
+                                        "name": "Biblické příběhy (Audio)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=sTi8E26eY5U&list=PL_AMlKGcFWjSv1BSm88mSbVNDPHA8Q-UI",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, biblické příběhy (audio)",
+                                        "file": "biblicke_audio"
+                                    },
+                                    {
+                                        "name": "Odysseus (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, odysseus (kniha)",
+                                        "file": "odyseus"
+                                    },
+                                    {
+                                        "name": "Odysseus (Audio - 1. část)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=zFmL_yyXzeg",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, odysseus (audio - 1. část)",
+                                        "file": "odyseus_audio1"
+                                    },
+                                    {
+                                        "name": "Odysseus (Audio - 2. část)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=46TA22-Kgzw",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, odysseus (audio - 2. část)",
+                                        "file": "odyseus_audio2"
+                                    },
+                                    {
+                                        "name": "Romeo a Julie (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, romeo a julie (kniha)",
+                                        "file": "next"
+                                    },
+                                    {
+                                        "name": "Romeo a Julie (Audio)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://youtu.be/wYB44C6VSiQ?t=66",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, romeo a julie (audio)",
+                                        "file": "next_audio"
+                                    },
+                                    {
+                                        "name": "Hamlet (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, hamlet (kniha)",
+                                        "file": "next2"
+                                    },
+                                    {
+                                        "name": "Hamlet (Audio)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://youtu.be/7-GCKrWbKd4?t=24",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, hamlet (audio)",
+                                        "file": "next_audio2"
+                                    },
+                                    {
+                                        "name": "Lakomec (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, lakomec (kniha)",
+                                        "file": "lakomec"
+                                    },
+                                    {
+                                        "name": "Lakomec (Audio)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=-vdUw6YY028",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, lakomec (audio)",
+                                        "file": "lakomec_audio"
+                                    },
+                                    {
+                                        "name": "Kytice (Kniha)",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "SPSE",
+                                        "ai": "",
+                                        "url": "https://cetba.spseplzen.cz/",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, kytice (kniha)",
+                                        "file": "kytice"
+                                    },
+                                    {
+                                        "name": "Kytice (Audio)",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=jEt6RUf3Z5w",
+                                        "tags": "avas - druhý ročník, obecné předměty, literatura, povinná četba, online knihy, kytice (audio)",
+                                        "file": "kytice_audio"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Matematika",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, obecné předměty, matematika",
+                        "short": "mat",
+                        "children": [
+                            {
+                                "name": "Tabulky",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, matematika, tabulky",
+                                "children": [
+                                    {
+                                        "name": "Tabulky vzorečků",
+                                        "type": "link",
+                                        "icon": "Table",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, matematika, tabulky, tabulky vzorečků",
+                                        "file": "mat_vzorecky.pdf"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Pracovní sešit",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, matematika, pracovní sešit",
+                                "children": [
+                                    {
+                                        "name": "PS2 - Výsledky",
+                                        "type": "link",
+                                        "icon": "Key",
+                                        "source": "",
+                                        "ai": "",
+                                        "tags": "avas - druhý ročník, obecné předměty, matematika, pracovní sešit, ps2 - výsledky",
+                                        "file": "ps2vysledky.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Fyzika",
+                        "type": "folder",
+                        "short": "fyz",
+                        "tags": "avas - druhý ročník, obecné předměty, fyzika",
+                        "children": [
+                            {
+                                "name": "Knihy",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, fyzika, knihy",
+                                "children": [
+                                    {
+                                        "name": "Sbírka příkladů",
+                                        "type": "link",
+                                        "icon": "Book",
+                                        "source": "",
+                                        "ai": "",
+                                        "file": "sbirka.pdf",
+                                        "tags": "avas - druhý ročník, obecné předměty, fyzika, knihy, sbírka příkladů"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Učivo jinak",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, fyzika, učivo jinak",
+                                "children": [
+                                    {
+                                        "name": "NEZkreslená věda",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=2FGIeUDeZmk&list=PLqmy0o96fQtBn6aiL5LA-ywdIwMp5yvni",
+                                        "tags": "avas - druhý ročník, obecné předměty, fyzika, učivo jinak, nezkreslená věda",
+                                        "file": "NEZkreslena"
+                                    },
+                                    {
+                                        "name": "Základy Elektrotechniky",
+                                        "type": "link",
+                                        "icon": "Youtube",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.youtube.com/watch?v=fM0MiUarinU&list=PL3r1xGSQfP9TBwvTqYEf6E-L9duHQbnir",
+                                        "tags": "avas - druhý ročník, obecné předměty, fyzika, učivo jinak, základy elektrotechniky",
+                                        "file": "ZakEl"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Ekonomie",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, obecné předměty, ekonomie",
+                        "short": "eko",
+                        "children": [
+                            {
+                                "name": "Poznámky",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, ekonomie, poznámky",
+                                "children": [
+                                    {
+                                        "name": "Poznámky - základ",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, ekonomie, poznámky, poznámky - základ",
+                                        "file": "poznamky.pdf"
+                                    },
+                                    {
+                                        "name": "Poznámky - pracovní poměr",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Benny",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, ekonomie, poznámky, poznámky - pracovní poměr",
+                                        "file": "poznamky2.pdf"
+                                    },
+                                    {
+                                        "name": "Poznámky - zaměstnání ZKOUŠENÍ",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Anne",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, ekonomie, poznámky, poznámky - zaměstnání zkoušení",
+                                        "file": "poznamky3.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Člověk ve společnosti a dějinách",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, obecné předměty, člověk ve společnosti a dějinách",
+                        "short": "csd",
+                        "children": [
+                            {
+                                "name": "Poznámky",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, člověk ve společnosti a dějinách, poznámky",
+                                "children": [
+                                    {
+                                        "name": "Shrnutí - 1. pololetí",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Anne",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, obecné předměty, člověk ve společnosti a dějinách, poznámky, shrnutí - 1. pololetí",
+                                        "file": "Obcanka_shrnuti_prvni_pololeti.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Odborné předměty",
+                "type": "group",
+                "tags": "avas - druhý ročník, odborné předměty",
+                "children": [
+                    {
+                        "name": "Informační a komunikační technologie",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, odborné předměty, informační a komunikační technologie",
+                        "short": "ikt",
+                        "children": [
+                            {
+                                "name": "Databáze",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, informační a komunikační technologie, databáze",
+                                "children": [
+                                    {
+                                        "name": "Databáze - poznámky",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, informační a komunikační technologie, databáze, databáze - poznámky",
+                                        "file": "databaze.pdf"
+                                    },
+                                    {
+                                        "name": "SQL - poznámky",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, informační a komunikační technologie, databáze, sql - poznámky",
+                                        "file": "SQL.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Počítačové sítě",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, odborné předměty, počítačové sítě",
+                        "short": "pos",
+                        "children": [
+                            {
+                                "name": "Síťařina",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, síťařina",
+                                "children": [
+                                    {
+                                        "name": "Nastavení switche",
+                                        "type": "link",
+                                        "icon": "Document",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, síťařina, nastavení switche",
+                                        "file": "nas_sw.pdf"
+                                    },
+                                    {
+                                        "name": "Tabulka IP class C",
+                                        "type": "link",
+                                        "icon": "Table",
+                                        "source": "Jack0b",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, síťařina, tabulka ip class c",
+                                        "file": "vypocetIP.pdf"
+                                    },
+                                    {
+                                        "name": "Výpočetní tabulka (overflow issue) ⭳",
+                                        "type": "link",
+                                        "icon": "Table",
+                                        "source": "Jack0b",
+                                        "ai": "Pomoc při vzorcích",
+                                        "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, síťařina, výpočetní tabulka (overflow issue) ⭳",
+                                        "file": "vypocetTab.xlsx"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Cisco akademie",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, cisco akademie",
+                                "children": [
+                                    {
+                                        "name": "Cisco Akademie",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.netacad.com/",
+                                        "tags": "avas - druhý ročník, odborné předměty, počítačové sítě, cisco akademie, cisco akademie",
+                                        "file": "akademie"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Vývoj webových stránek",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek",
+                        "short": "web",
+                        "children": [
+                            {
+                                "name": "Vytváření webu",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, vytváření webu",
+                                "children": [
+                                    {
+                                        "name": "W3Schools",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.w3schools.com/",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, vytváření webu, w3schools",
+                                        "file": "w3schools"
+                                    },
+                                    {
+                                        "name": "Validator",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://validator.w3.org/",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, vytváření webu, validator",
+                                        "file": "w3c"
+                                    },
+                                    {
+                                        "name": "Github webdev-resources",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "",
+                                        "ai": "Žádné",
+                                        "url": "https://github.com/ItzAshOffcl/awesome-webdev-resources/",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, vytváření webu, github webdev-resources",
+                                        "file": "awr"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Databáze (MySQL)",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql)",
+                                "children": [
+                                    {
+                                        "name": "Základy databází",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Lukesova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql), základy databází",
+                                        "file": "zaklady_databaze.pdf"
+                                    },
+                                    {
+                                        "name": "Relace v databázi",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Lukesova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql), relace v databázi",
+                                        "file": "relace_v_databazi.pdf"
+                                    },
+                                    {
+                                        "name": "Normalizace v databázi",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Lukesova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql), normalizace v databázi",
+                                        "file": "normalizace_v_databazi.pdf"
+                                    },
+                                    {
+                                        "name": "MySQL databáze",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Lukesova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql), mysql databáze",
+                                        "file": "mysql_databaze.pdf"
+                                    },
+                                    {
+                                        "name": "Tahák PHP - práce se soubory a textem",
+                                        "type": "link",
+                                        "icon": "Notes",
+                                        "source": "Lukesova",
+                                        "ai": "Žádné",
+                                        "tags": "avas - druhý ročník, odborné předměty, vývoj webových stránek, databáze (mysql), tahák php - práce se soubory a textem",
+                                        "file": "tahak_soubory_php.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Technické vybavení",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, odborné předměty, technické vybavení",
+                        "short": "tvy",
+                        "children": [
+                            {
+                                "name": "Poznámky",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, odborné předměty, technické vybavení, poznámky",
+                                "children": [
+                                    {
+                                        "name": "Grafické čipy AMD Radeon (9000)",
+                                        "type": "link",
+                                        "icon": "Presentation",
+                                        "source": "Hanzal",
+                                        "ai": "Nejspíš full (nepotvrzeno)",
+                                        "tags": "avas - druhý ročník, odborné předměty, technické vybavení, poznámky, grafické čipy amd radeon (9000)",
+                                        "file": "amd_9000.pdf"
+                                    },
+                                    {
+                                        "name": "Grafické čipy Intel ARC",
+                                        "type": "link",
+                                        "icon": "Presentation",
+                                        "source": "Hanzal",
+                                        "ai": "Nejspíš full (nepotvrzeno)",
+                                        "tags": "avas - druhý ročník, odborné předměty, technické vybavení, poznámky, grafické čipy intel arc",
+                                        "file": "intel_arc.pdf"
+                                    },
+                                    {
+                                        "name": "Grafické čipy NVIDIA GeForce (5000)",
+                                        "type": "link",
+                                        "icon": "Presentation",
+                                        "source": "Hanzal",
+                                        "ai": "Nejspíš full (nepotvrzeno)",
+                                        "tags": "avas - druhý ročník, odborné předměty, technické vybavení, poznámky, grafické čipy nvidia geforce (5000)",
+                                        "file": "nvidia_5000.pdf"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Cizí jazyky",
+                "type": "group",
+                "tags": "avas - druhý ročník, cizí jazyky",
+                "children": [
+                    {
+                        "name": "Anglický Jazyk",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk",
+                        "short": "anj",
+                        "children": [
+                            {
+                                "name": "Pracovní sešit",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, pracovní sešit",
+                                "children": [
+                                    {
+                                        "name": "PS Interm. - Výsledky",
+                                        "type": "link",
+                                        "icon": "Key",
+                                        "source": "",
+                                        "ai": "",
+                                        "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, pracovní sešit, ps interm. - výsledky",
+                                        "file": "anj_ps_vysledkyp.pdf"
+                                    },
+                                    {
+                                        "name": "PS Pre-Interm. - Výsl.",
+                                        "type": "link",
+                                        "icon": "Key",
+                                        "source": "",
+                                        "ai": "",
+                                        "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, pracovní sešit, ps pre-interm. - výsl.",
+                                        "file": "anj_ps_vysledkyr.pdf"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Testy",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, testy",
+                                "children": [
+                                    {
+                                        "name": "Testy Interm. ⭳",
+                                        "type": "link",
+                                        "icon": "Files",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.dropbox.com/scl/fo/69tulcu0q1048x4afojr4/AA4eDq7gQxkQtq4XI-V5EsY?rlkey=557lgyjzvq2unhx8xia3plaim&st=l0z9bzvq&dl=0",
+                                        "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, testy, testy interm. ⭳",
+                                        "file": "testsp"
+                                    },
+                                    {
+                                        "name": "Testy Pre-Interm. ⭳",
+                                        "type": "link",
+                                        "icon": "Files",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.dropbox.com/scl/fo/95uq4j34xf68uvihvzyej/ACbwW15zz6F1HBaq0qtjJeY?rlkey=dx9w20axi4ewvsg0cvqx8ukok&st=qegtjoke&dl=0",
+                                        "tags": "avas - druhý ročník, cizí jazyky, anglický jazyk, testy, testy pre-interm. ⭳",
+                                        "file": "testsr"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Německý Jazyk",
+                        "type": "folder",
+                        "tags": "avas - druhý ročník, cizí jazyky, německý jazyk",
+                        "short": "nej",
+                        "children": [
+                            {
+                                "name": "Pracovní sešit",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, cizí jazyky, německý jazyk, pracovní sešit",
+                                "children": [
+                                    {
+                                        "name": "Klett - Učebnice",
+                                        "type": "link",
+                                        "icon": "Key",
+                                        "source": "",
+                                        "ai": "",
+                                        "url": "https://www.mcourser.cz/klett/Direkt_interaktiv_1_CZ",
+                                        "tags": "avas - druhý ročník, cizí jazyky, německý jazyk, pracovní sešit, klett - učebnice",
+                                        "file": "ps"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Ostatní",
+        "type": "folder",
+        "image": "./graphics/folder/other.png",
+        "tags": "ostatní",
+        "short": "other",
+        "children": [
+            {
+                "name": "AI",
+                "type": "group",
+                "image": "./graphics/subjects/other/ai.png",
+                "tags": "ostatní, ai",
+                "short": "ai",
+                "children": [
+                    {
+                        "name": "Gemini PRO + 2TB",
+                        "type": "link",
+                        "icon": "Website",
+                        "source": "SPSE",
+                        "ai": "Full (překvapivě)",
+                        "url": "https://gemini.google/cz/students/?hl=cs",
+                        "tags": "ostatní, ai, gemini pro + 2tb",
+                        "file": "Gemini"
+                    }
+                ]
+            }
+        ]
+    }
+]

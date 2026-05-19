@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./graphics/icons/icon_32.png" type="image/x-icon">
+    <script src="./scripts/mode.js"></script>
+    <link rel="stylesheet" href="./styles/theme.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <title>404 - Nenalezeno (vočko)</title>
+</head>
+<body>
+    <header>
+        <a href="./index.html" id="vocko" style="text-decoration: none !important; border: none !important; outline: none !important; box-shadow: none !important;">
+            <h1 id="logo" style="display: flex;">
+                <span style="overflow: hidden; white-space: nowrap; width: 0; display: inline-block; animation: typeLogo 1s steps(5, end) forwards;">vočko</span>
+                <span id="blinking">_</span>
+            </h1>
+        </a>
+    </header>
+    <main>
+        <div class="error-container">
+            <div class="error-404">
+                <span class="error-num">4</span>
+                <div class="eye-container">
+                    <img src="./graphics/animated/visions-out.png" alt="eye" class="eye-out">
+                    <img src="./graphics/animated/visions-in.png" alt="pupil" class="eye-pupil">
+                </div>
+                <span class="error-num">4</span>
+            </div>
+            <p class="error-msg">Hmm, nic tu není.</p>
+            <a href="./index.html" class="back-btn">Zpět na domovskou stránku</a>
+        </div>
+    </main>
+    <footer>
+        <div id="footer_txt">
+            <p>vočko - Veškeré položky na webu nejsou prací vočka, ale komunity</p>
+            <p>Bylo použito Generativní AI (bohužel).</p>
+        </div>
+    </footer>
+    <img src="./graphics/goofy.png" id="goofy-secret" alt="secret" onclick="alert('Peekaboo!')">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (Math.random() < 0.1) {
+                const errorMsg = document.querySelector(".error-msg");
+                if (errorMsg) errorMsg.textContent = "Nobody here but us chickens!";
+            }
+        });
+    </script>
+</body>
+</html>

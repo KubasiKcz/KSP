@@ -1,3 +1,21 @@
+// Automatická inicializace tmavého režimu (Nemam rád světlej režim >:()
+if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.remove('dark');
+} else {
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+}
+
+// Okamžitá inicializace tmavého režimu aby nedocházelo k probliknutí 
+(() => {
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+        window.__darkModeImage = "./graphics/icons/darkmode-switch.png";
+    } else {
+        window.__darkModeImage = "./graphics/icons/lightmode-switch.png";
+    }
+})();
+
 function mode() {
     const root = document.documentElement;
     const img = document.querySelector("#dark_mode");

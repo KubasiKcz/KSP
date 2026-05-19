@@ -1,0 +1,34 @@
+/* --- LIGHT MODE --- */
+:root {
+    --background-color: rgb(230, 230, 230);
+    --text-color: black;
+    --text-color-invert : white;
+    --header-footer-bg-color: rgb(163, 163, 163);
+    --header-footer-bg-color-invert: rgb(20, 20, 20);
+    --button-border-color: rgb(88, 88, 88);
+    --button-border-style: solid;
+    --button-bg-color: var(--background-color);
+    --button-bg-color-hover: rgb(88, 88, 88);
+    --icon-filter: none;
+    --icon-outline-width: 2px;
+    --icon-invert: 1;
+    --icon-outline-color: rgba(0,0,0,0.65);
+    --switch-color: rgba(255,255,255,0.95);
+}
+
+/* --- DARK MODE --- */
+html.dark {
+    --background-color: rgb(40, 40, 40);
+    --text-color: white;
+    --text-color-invert: black;
+    --header-footer-bg-color: rgb(20, 20, 20);
+    --header-footer-bg-color-invert: rgb(163, 163, 163);
+    --button-border-color: white;
+    --button-border-style: double;
+    --button-bg-color: var(--background-color);
+    --button-bg-color-hover: white;
+    --icon-filter: brightness(0) invert(1);
+    --icon-invert: 0;
+    --icon-outline-color: rgba(255,255,255,0.9);
+    --switch-color: rgba(0,0,0,0.7);
+}

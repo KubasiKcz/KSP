@@ -1,0 +1,141 @@
+[
+    {
+        "version": "v3.0.0",
+        "badge": "Modernization",
+        "date": "19.05.2026",
+        "changes": [
+            "Modernizace UI: boot animace (oko), dark mode, rozdělení CSS do modulů, changelog",
+            "Automatická inicializace dark mode",
+            "Přidána lokální vyhledávací lišta",
+            "Custom 404 stránka",
+            "Systém pro žádosti o nahrání materiálů",
+            "Python GUI aplikace (QSON Editor) pro správu a validaci dat",
+            "- Vizuální strom JSON s Drag & Drop řazením",
+            "- Validátor databáze (kontrola existujících souborů)",
+            "- Kompresní nástroj pro obrázky a PDF",
+            "Refaktorizace dat: přejmenování složek (data -> database, files -> materials)",
+            "- Nová struktura obrázků (subjects/2_AVAS/predmet/soubor.png)",
+            "- JS dynamicky generuje URL a náhledy dle 'short' + 'file' parametrů",
+            "- data.json zjednodušen",
+            "Odborné předměty:",
+            "- Technické vybavení ~ Přidán 2. ročník (nové materiály: GPU AMD, Intel, Nvidia)",
+            "- Technické vybavení ~ 1. ročník: Prezentace TVY nahráno lokálně",
+            "Obecné předměty:",
+            "- Literatura ~ Přidány poznámky: Baroko, Klasicismus/Osvícenství/Preromantismus, Národní obrození",
+            "- Literatura ~ Přidána sekce Povinná četba (Referát + Online knihy)",
+            "- Literatura ~ Online knihy: Biblické příběhy, Odysseus, Lakomec, Kytice, Romeo a Julie, Hamlet, Noc na Karlštejně (zdroj: SPSE)",
+            "- Český jazyk ~ Lexikologie Teorie nahráno lokálně",
+            "- Český jazyk ~ Ostatní materiály označeny [LOST MEDIA]",
+            "- Literatura ~ Středověk PDF označen [LOST MEDIA]",
+            "Předělána nápověda",
+            "Nové profilovky zdrojů: Hanzal, Lukešová",
+            "Oprava obrázku skupiny AI (other/ai.png)"
+        ]
+    },
+    {
+        "version": "v2.0.0",
+        "date": "12.03.2026",
+        "badge": "Revive?",
+        "changes":[
+            "Nový název (ale git asi necham idk)",
+            "Předělaná grafika na CSD",
+            "Nové sources ikonky",
+            "Ikonka pro prezentaci",
+            "Nová ikonka pro ostatní",
+            "Error system (placeholder.png)",
+            "Replace placeholder.png",
+            "Odstranění zbytečného kódu",
+            "Obecné předměty:",
+            "- Ekonomie ~ Nahrané nové poznámky (+ přejmenování starých)",
+            "Ostatní:",
+            "- Odstranění best plugins (nefunguje a stejně ve škole nepovolí)"
+        ]
+    },
+    {
+        "version": "v1.1.1",
+        "date": "21.01.2026",
+        "badge": "Božen's curse",
+        "changes": [
+            "v data.json bylo všude o tečku navíc"
+        ]
+    },
+    {
+        "version": "v1.1.0",
+        "date": "21.01.2026",
+        "badge": "JSON Rework",
+        "changes": [
+            "Předělání generačního skriptu a přepsání csv na json (vše se odehrává na indexu)",
+            "Rozděleno na Obory a ročníky (pro future kandidáty)",
+            "Komprese souborů a obrázků",
+            "Odkaz na Git, search bar, help btn",
+            "Obecné předměty:",
+            "- Ekonomie ~ 2pololetí - poznámky",
+            "- Český jazyk ~ Naházené věci z Teams (středověk)",
+            "Odborné předměty:",
+            "- Technické vybavení ~ Stará prezentace přesunuta do prvního ročníku",
+            "- Informační a komunikační technologie ~ Poznámky pro databáze",
+            "Cizí jazyky:",
+            "- Anglický Jazyk ~ Řešení testů přesunuto na DropBox"
+        ]
+    },
+    {
+        "version": "v1.0.3",
+        "date": "17.12.2025",
+        "badge": "Code FIX",
+        "changes": [
+            "Božo potahal",
+            "Celkové překopání filesystemu, JS, HTML, CSV, (plánované je i CSS)",
+            "Zmenšení OBROVSKEJ obrázků",
+            "Obecné předměty:",
+            "- Český jazyk ~ Změna ikonek",
+            "- Člověk ve společnosti a dějinách ~ Vložení poznámek",
+            "Ostatní:",
+            "- AI Gemini free",
+            "- VS Portable",
+            "- VS Pluginy"
+        ]
+    },
+    {
+        "version": "v1.0.2",
+        "date": "15.12.2025",
+        "badge": "Add hotfix",
+        "changes": [
+            "Přesunutí Nj & Aj do Cizích jazyků",
+            "Obecné předměty:",
+            "- Český jazyk ~ Naházené věci z Teams",
+            "- Fyzika ~ Základy Elektrotechniky, odstranění učebnice (nedostupná)",
+            "Odborné předměty:",
+            "- Počítačové sítě ~ přidáná výpočetní tabulka pro výpočet IP",
+            "Cizí jazyky:",
+            "- Anglický jazyk ~ Přidání červené učebnice + testy"
+        ]
+    },
+    {
+        "version": "v1.0.1",
+        "date": "09.12.2025",
+        "badge": "Image hotfix",
+        "changes": [
+            "Oprava type png's (velká malá písmena)",
+            "Odborné předměty:",
+            "- Počítačové Sítě ~ Přidání zapomenuté Cisco Akademie + tabulka na výpočet IP",
+            "PLÁNOVÁNÍ PŘEKOPÁNÍ JS KOMPLET"
+        ]
+    },
+    {
+        "version": "v1.0.0",
+        "date": "09.12.2025",
+        "badge": "Initial Page",
+        "changes": [
+            "Obecné předměty:",
+            "- Literatura ~ Naházené věci z Teams, četba na příště",
+            "- Matematika ~ Výsledky z PS, Vzorečky pro goniometrii",
+            "- Fyzika ~ Sbírka a Učebnice, NEZkreslená věda",
+            "- Ekonomie ~ Poznámky ze sešitu",
+            "- Anglický Jazyk ~ Řešení PS a Testů",
+            "- Německý Jazyk ~ Řešení PS",
+            "Odborné předměty:",
+            "- Počítačové Sítě ~ Základní nastavení switche, Cisco Akademie",
+            "- Technické vybavení ~ Prezentace TVY FULL [NEAKTUALIZOVANÁ]"
+        ]
+    }
+]

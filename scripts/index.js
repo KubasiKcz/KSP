@@ -6,7 +6,7 @@
 const title_messages = [
     "Jak nebýt panicem", 
     "Seznamka pro osamělé školáky", 
-    "Pilulky na zvětšení penisu", 
+    "Pilulky na zvětšení svého údu", 
     "A CO JAKO?!", 
     "Dont leave me :(", 
     "Pullnětě někdo Beneše PLS", 
@@ -15,11 +15,10 @@ const title_messages = [
     "dvojtecka tri",
     "kdy prezentace na tvy🤓☝️ STFUUUUUUUUUU",
     "BOŽO OPRAV TO",
-    "Pocem bby, dělej mi mindžu",
+    "Pocem bby, dělej tu mindžu",
     "Nekřesťanské toto",
-    "Víme o vás všechno - Cookies",
     "Fortnite a Valorant skin changer",
-    "Fort-night"
+    "D̸̨̢͔̘̳̱̊̔͜͝Ȩ̸̛̱̭̭͂̀̂́̐̀̔͒͝M̷̖̬̩̱̹̯͔̅Ő̵͙̠̝̹͖̉͑N̴̨̬̗̣͇̳̈́̚͜ ̶̡̡̞̝̪̗̮͙͎̈́̄́̑͑́͘͜͝S̴̳̙̪̙̭͈͇̭̣̿͐̀̔͐̈́̈́̅͗̚U̶̢̡̮̝͕͖̍̈̓̓́̕̕M̸̨̺͚̥͎͐͛̏͊͌̀̕̕M̶̨͕͉̰̞̙̔̊̄̈́͑̄͘͝͝O̸̡̝͉̻̪̐̀̔̇̉͂̓̔̂͠N̸̻̯̜̑̿̌̐͛̾̈́͒̿͠È̶̗̩̳̳̘͚̥͇̎̀̏̍R̸̗̳̥̰̣̠̬̩̉̈́̑͌̐̂̊̈̏̚"
 ];
 
 let titleTimeoutId = null;
@@ -52,10 +51,12 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-//Logo
+// Zpět na index
 window.handleLogoClick = function() {
     if (currentPath.length > 0) {
-        window.history.back();
+        currentPath = [];
+        history.pushState({ path: currentPath }, "");
+        renderCurrentView();
     } else {
         window.location.reload();
     }
@@ -83,9 +84,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchData() {
     try {
-        const response = await fetch('./data/data.json');
+        const response = await fetch('./database/data.json');
         if (!response.ok) throw new Error('Chyba sítě');
-        window.fullData = await response.json();
+        const rawData = await response.json();
+        
+        // --- PREPROCESSOR: Dynamické cesty ---
+        function preprocessData(nodes, yearShort = null, subjectShort = null) {
+            nodes.forEach(node => {
+                let currentYear = yearShort;
+                let currentSubject = subjectShort;
+                
+                // Určení ročníku a předmětu podle short zkratek v jsonu
+                if (node.type === 'folder' && !yearShort) {
+                    currentYear = node.short || null;
+                } else if ((node.type === 'folder' || node.type === 'group') && yearShort && !subjectShort && node.short) {
+                    currentSubject = node.short;
+                    
+                    if (!node.image) {
+                        node.image = `./graphics/subjects/${currentYear}/${currentSubject}.png`;
+                    }
+                }
+
+                // Generování relativních path pro PDF materiály a thumbnails
+                if (node.type === 'link' && node.file) {
+                    if (!node.url && currentYear && currentSubject) {
+                        node.url = `./materials/${currentYear}/${currentSubject}/${node.file}`;
+                    }
+                    if (!node.image && currentYear && currentSubject) {
+                        const parts = node.file.split('.');
+                        const fileNameWithoutExt = parts.length > 1 ? parts.slice(0, -1).join('.') : node.file;
+                        node.image = `./graphics/subjects/${currentYear}/${currentSubject}/${fileNameWithoutExt}.png`;
+                    }
+                }
+                
+                // Rekurzivní zpracování children
+                if (node.children) {
+                    preprocessData(node.children, currentYear, currentSubject);
+                }
+            });
+        }
+        preprocessData(rawData);
+        window.fullData = rawData;
+        // -----------------------------------
 
         if (history.state && history.state.path) {
             currentPath = history.state.path;
@@ -101,9 +141,19 @@ async function fetchData() {
 function renderCurrentView() {
     let dataToRender = window.fullData;
     let valid = true;
+    
+    const breadcrumbs = [{ name: "Domů", path: [] }];
+    let tempPath = [];
 
     for (let index of currentPath) {
+        tempPath.push(index);
         if (dataToRender[index] && dataToRender[index].children) {
+            if (dataToRender[index].type !== 'group') {
+                breadcrumbs.push({ 
+                    name: dataToRender[index].name, 
+                    path: [...tempPath] 
+                });
+            }
             dataToRender = dataToRender[index].children;
         } else {
             valid = false;
@@ -115,6 +165,36 @@ function renderCurrentView() {
         currentPath = [];
         dataToRender = window.fullData;
         history.replaceState({ path: [] }, "");
+        breadcrumbs.length = 1;
+    }
+
+    const breadcrumbsDiv = document.getElementById('breadcrumbs');
+    if (breadcrumbsDiv) {
+        breadcrumbsDiv.innerHTML = '';
+        breadcrumbs.forEach((crumb, i) => {
+            const span = document.createElement('span');
+            span.innerText = crumb.name;
+            
+            if (i < breadcrumbs.length - 1) {
+                span.className = 'crumb-link';
+                span.onclick = () => {
+                    currentPath = crumb.path;
+                    history.pushState({ path: currentPath }, "");
+                    renderCurrentView();
+                };
+            } else {
+                span.className = 'crumb-active';
+            }
+            
+            breadcrumbsDiv.appendChild(span);
+            
+            if (i < breadcrumbs.length - 1) {
+                const sep = document.createElement('span');
+                sep.innerText = '>';
+                sep.className = 'crumb-separator';
+                breadcrumbsDiv.appendChild(sep);
+            }
+        });
     }
 
     renderContent(dataToRender);
@@ -157,21 +237,25 @@ function renderContent(data) {
 function renderGridItems(items, container, groupIndex) {
     items.forEach((item, localIndex) => {
         
-        // Wrapper
+        // Hlavní wrapper element pro položku
         const wrapper = document.createElement('div');
         wrapper.className = 'item-wrapper';
         
-// Box
+        // Box link pro kliknutí (složka, skupina nebo přímý odkaz)
         let box;
         if (item.type === 'folder' || item.type === 'group') {
             box = document.createElement('a');
             box.href = '#vocko';
             box.onclick = (scrl) => {
                 scroll(scrl);
-                const newPath = [...currentPath];
-                if (groupIndex !== null) newPath.push(groupIndex);
-                newPath.push(localIndex);
-                currentPath = newPath;
+                if (item.__absPath) {
+                    currentPath = item.__absPath;
+                } else {
+                    const newPath = [...currentPath];
+                    if (groupIndex !== null) newPath.push(groupIndex);
+                    newPath.push(localIndex);
+                    currentPath = newPath;
+                }
                 history.pushState({ path: currentPath }, "");
                 renderCurrentView();
             };
@@ -199,7 +283,7 @@ function renderGridItems(items, container, groupIndex) {
 
         // --- ICONS (BODY) ---
 
-        // Type Icon
+        // Type Icon (pdf, word, pptx...)
         if (item.icon) {
             const typeIcon = document.createElement('img');
             typeIcon.src = `./graphics/type/${item.icon}.png`;
@@ -211,7 +295,7 @@ function renderGridItems(items, container, groupIndex) {
             
             box.appendChild(typeIcon);
         }
-        // Source Icon
+        // Source Icon (Beneš, z netu...) s tooltiplem
         if (item.source) {
             const infoIcon = document.createElement('img');
             infoIcon.src = `./graphics/source/${item.source}.png`; 
@@ -228,7 +312,7 @@ function renderGridItems(items, container, groupIndex) {
 
         wrapper.appendChild(box);
 
-        // Text pod boxem
+        // Název materiálu zobrazený pod boxem
         const titleP = document.createElement('p');
         titleP.innerText = item.name;
         titleP.className = 'box-title'; 
@@ -246,44 +330,33 @@ function github_redirect() {
     window.open("https://github.com/kubasikcz/ksp", "_blank");
 }
 
-function help() {
-    const modal = document.getElementById('help');
-    if (modal) {
-        modal.classList.add('help-modal');
+window.openModal = function(id) {
+    const modal = document.getElementById(id);
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
+        overlay.classList.add('show');
+        modal.classList.add('show-modal');
+    }
+}
 
-        const closeBtn = modal.querySelector('button');
-        if (closeBtn) {
-            closeBtn.onclick = () => {
-                modal.classList.remove('help-modal');
-            };
+window.closeModal = function(id) {
+    const modal = document.getElementById(id);
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
+        modal.classList.remove('show-modal');
+        // Pokud není otevřený žádný jiný modal, skryje se i overlay
+        if (!document.querySelector('.modal.show-modal')) {
+            overlay.classList.remove('show');
         }
     }
 }
 
-function closeHelp() {
-    const modal = document.getElementById('help');
-    if (modal) {
-        modal.classList.remove('help-modal');
-    }
-}
-
-function changelog() {
-    const modal = document.getElementById('version');
-    if (modal) {
-        modal.classList.add('version-modal');
-
-        const closeBtn = modal.querySelector('button');
-        if (closeBtn) {
-            closeBtn.onclick = () => {
-                modal.classList.remove('version-modal');
-            };
-        }
-    }
-}
+window.help = () => openModal('help');
+window.changelog = () => openModal('version');
 
 async function loadVersionData() {
     try {
-        const response = await fetch('./data/version.json');
+        const response = await fetch('./database/version.json');
         if (!response.ok) return;
 
         const data = await response.json();
@@ -313,11 +386,20 @@ async function loadVersionData() {
             const tbody = table.querySelector('tbody');
 
             data.forEach(item => {
+                // --- Generování obsahu změn ---
                 let changesContent = "";
                 if (Array.isArray(item.changes)) {
+                    let inList = false;
                     item.changes.forEach(line => {
-                        changesContent += line + "<br>";
+                        if (line.startsWith("- ")) {
+                            if (!inList) { changesContent += `<ul class="cl-list">`; inList = true; }
+                            changesContent += `<li>${line.slice(2)}</li>`;
+                        } else {
+                            if (inList) { changesContent += `</ul>`; inList = false; }
+                            changesContent += `<span class="cl-header">${line}</span>`;
+                        }
                     });
+                    if (inList) changesContent += `</ul>`;
                 } else {
                     changesContent = item.changes;
                 }
@@ -346,17 +428,208 @@ async function loadVersionData() {
 document.addEventListener("DOMContentLoaded", () => {
     loadVersionData();
 
-    if (!localStorage.getItem('hasVisited')) {
-        help();
-        localStorage.setItem('hasVisited', 'true');
+    // Boot screen animace při úplně první návštěvě (first visit)
+    const bootScreen = document.getElementById('boot-screen');
+    const isFirstVisit = !localStorage.getItem('hasVisitedV3');
+    
+    if (isFirstVisit && bootScreen) {
+        bootScreen.style.display = 'flex';
+        const bootEye = document.getElementById('boot-eye');
+        setTimeout(() => {
+            if (bootEye) bootEye.classList.add('open');
+        }, 100);
+        setTimeout(() => {
+            if (bootEye) bootEye.classList.add('centered');
+            setTimeout(() => {
+                if (bootEye) {
+                    bootEye.classList.remove('open');
+                }
+                bootScreen.style.opacity = '0';
+                bootScreen.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    bootScreen.style.display = 'none';
+                    openModal('help');
+                }, 800);
+            }, 400);
+        }, 1800);
+        localStorage.setItem('hasVisitedV3', 'true');
     }
 
+    // Zavírání modals pomocí esc, či kliknutí jinam
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
-            const versionModal = document.getElementById('version');
-            const helpModal = document.getElementById('help');
-            if (versionModal) versionModal.classList.remove('version-modal');
-            if (helpModal) helpModal.classList.remove('help-modal');
+            document.querySelectorAll('.modal.show-modal').forEach(m => closeModal(m.id));
         }
     });
-});
+
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            document.querySelectorAll('.modal.show-modal').forEach(m => closeModal(m.id));
+        });
+    }
+
+    // Vyhledávač
+    const searchBar = document.getElementById('bar');
+    if (searchBar) {
+        searchBar.placeholder = "Hledat...";
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.trim() === "") {
+                renderCurrentView();
+                return;
+            }
+            
+            const results = [];
+            
+            function removeDiacritics(str) {
+                return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            
+            function fuzzyScore(query, text) {
+                const q = removeDiacritics(query.toLowerCase());
+                const t = removeDiacritics(text.toLowerCase());
+                
+                if (t === q) return 10000;
+                if (t.includes(q)) return 1000 + (t.length - t.indexOf(q));
+                
+                let i = 0, j = 0;
+                let consecutive = 0;
+                let score = 0;
+                while (i < q.length && j < t.length) {
+                    if (q[i] === t[j]) {
+                        score += 10 + (consecutive * 5);
+                        consecutive++;
+                        i++;
+                    } else {
+                        consecutive = 0;
+                    }
+                    j++;
+                }
+                return i === q.length ? score : 0;
+            }
+
+            function searchTree(items, currentPathArr) {
+                items.forEach((item, index) => {
+                    const newPath = [...currentPathArr, index];
+                    
+                    if (item.type !== 'group' && item.type !== 'folder') {
+                        const nameScore = fuzzyScore(query, item.name);
+                        const tagsScore = fuzzyScore(query, item.tags || "");
+                        const score = Math.max(nameScore, tagsScore);
+                        if (score > 0) {
+                            results.push({...item, __absPath: newPath, __score: score});
+                        }
+                    }
+
+                    if (item.children) {
+                        searchTree(item.children, newPath);
+                    }
+                });
+            }
+            searchTree(window.fullData, []);
+            
+            results.sort((a, b) => b.__score - a.__score);
+            
+            const container = document.getElementById('dynamic-content');
+            if (container) {
+                container.innerHTML = '';
+                const title = document.createElement('h2');
+                title.innerText = `Výsledky hledání`;
+                title.className = 'section-title';
+                container.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'box-container';
+                renderGridItems(results, grid, null);
+                container.appendChild(grid);
+            }
+        });
+    }
+
+    // Odesílání žádostí o nahrání
+    const uploadForm = document.getElementById('upload-form');
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('upload-status');
+            
+            // Honeypot check proti spambotům
+            if (document.getElementById('user-website').value !== "") {
+                status.innerText = "Chyba sítě. Zkuste to později.";
+                status.style.color = "red";
+                return; // Detekován bot
+            }
+
+            // Cooldown check (limit 5 odeslání za hodinu v localStorage)
+            const now = Date.now();
+            let uploads = JSON.parse(localStorage.getItem('uploadTimestamps') || '[]');
+            uploads = uploads.filter(t => now - t < 3600000); // Filtrování timestampů za poslední hodinu
+
+            if (uploads.length >= 5) {
+                status.innerText = "Dosáhli jste limitu (5 žádostí za hodinu). Zkuste to později.";
+                status.style.color = "red";
+                return;
+            }
+
+            const action = document.getElementById('up-action').value;
+            let embedColor = 2326507; // Default Blue (výchozí modrá)
+            if (action === "UPLOAD") embedColor = 5763719; // Green (zelená)
+            if (action === "EDIT") embedColor = 16776960; // Yellow (žlutá)
+            if (action === "REMOVE") embedColor = 15548997; // Red (červená)
+
+            const authorName = document.getElementById('up-author').value || "Anonym";
+            const authorIcon = document.getElementById('up-pfp').value;
+
+            const embed = {
+                title: action,
+                color: embedColor,
+                author: {
+                    name: authorName,
+                    icon_url: authorIcon ? authorIcon : undefined
+                },
+                description: `**Název materiálu:** ${document.getElementById('up-title').value}\n` +
+                             `**Odkaz na materiál:** ${document.getElementById('up-link').value}\n\n` +
+                             `**Poznámka:**\n${document.getElementById('up-note').value || 'Žádná poznámka'}`
+            };
+
+            try {
+                status.innerText = "Odesílám...";
+                status.style.color = "var(--text-color)";
+                const url = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9vaHMvMTUwNTk3NzgzMTI4MzQ5NTAwMy9GZXdneDJNbzNNZ05IdkhSMndMRHd5d1NtVGRiQjRJY1hMSnpoQ1NQczl3dXhlRURZT1ZfLXZFaGpvVzRvcEppWFhV");
+                
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ content: "<@677124005718654986>", embeds: [embed] })
+                });
+                status.innerText = "Úspěšně odesláno! Děkujeme.";
+                status.style.color = "green";
+                
+                uploads.push(now);
+                localStorage.setItem('uploadTimestamps', JSON.stringify(uploads));
+                localStorage.removeItem('lastUploadTime');
+                
+                uploadForm.reset();
+                setTimeout(() => closeModal('upload'), 2500);
+            } catch (err) {
+                status.innerText = "Nastala chyba při odesílání.";
+                status.style.color = "red";
+            }
+        });
+    }
+});function wtf() {
+    if (window.handleLogoClick) {
+        window.handleLogoClick();
+    } else {
+        window.location.reload();
+    }
+}
+
+function scroll(event) {
+    event.preventDefault();
+    const top = document.getElementById("vocko");
+    if (top) {
+        top.scrollIntoView({ behavior: "instant", block: "start"})
+    }
+}

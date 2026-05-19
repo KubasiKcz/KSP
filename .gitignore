@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.venv
+venv/
+env/
+ENV/
+.mypy_cache/
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files created by the AI assistant
+scratch/
+.tempmediaStorage/
+brain/
+
+# Others
+.upload/
