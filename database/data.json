@@ -459,6 +459,31 @@
                                         "file": "ZakEl"
                                     }
                                 ]
+                            },
+                            {
+                                "name": "Quiz",
+                                "type": "group",
+                                "tags": "avas - druhý ročník, obecné předměty, fyzika, quiz",
+                                "children": [
+                                    {
+                                        "name": "Shrnutí - Elektrické Jevy & Světlo",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "Vana",
+                                        "ai": "100%",
+                                        "tags": "avas - druhý ročník, obecné předměty, fyzika, quiz, shrnutí",
+                                        "file": "shrnuti-ElSv.html"
+                                    },
+                                    {
+                                        "name": "Cvičení - Elektrické Jevy & Světlo",
+                                        "type": "link",
+                                        "icon": "Website",
+                                        "source": "Vana",
+                                        "ai": "100%",
+                                        "tags": "avas - druhý ročník, obecné předměty, fyzika, quiz, cvičení",
+                                        "file": "cviceni-ElSv.html"
+                                    }
+                                ]
                             }
                         ]
                     },

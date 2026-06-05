@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fyzika — Střídavý proud & Světlo</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1522;
+    --card: #111827;
+    --card2: #1a2535;
+    --border: rgba(99,179,237,0.15);
+    --blue: #63b3ed;
+    --cyan: #4fd1c5;
+    --purple: #b794f4;
+    --gold: #f6e05e;
+    --pink: #fc8181;
+    --green: #68d391;
+    --orange: #f6ad55;
+    --text: #e2e8f0;
+    --muted: #718096;
+    --glow-blue: 0 0 20px rgba(99,179,237,0.4);
+    --glow-purple: 0 0 20px rgba(183,148,244,0.4);
+    --glow-cyan: 0 0 20px rgba(79,209,197,0.4);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── ANIMATED BACKGROUND ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(99,179,237,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(183,148,244,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(79,209,197,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 60px;
+    overflow: hidden;
+  }
+
+  .header-wave {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100%;
+    opacity: 0.08;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      var(--blue) 40px,
+      var(--blue) 41px
+    );
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    border: 1px solid rgba(79,209,197,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .title-ac { color: var(--blue); }
+  .title-light { color: var(--gold); }
+
+  .header-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 20px 60px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  nav a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--card);
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+  }
+  nav a:hover { color: var(--blue); border-color: var(--blue); box-shadow: var(--glow-blue); }
+
+  /* ─── MAIN LAYOUT ─── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    margin-bottom: 80px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    min-width: 36px;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  h2 .accent { color: var(--blue); }
+  h2 .accent-g { color: var(--gold); }
+  h2 .accent-p { color: var(--purple); }
+  h2 .accent-c { color: var(--cyan); }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .card:hover { border-color: rgba(99,179,237,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+
+  .card-title {
+    font-size: 0.75rem;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .card p { color: #a0aec0; margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* ─── FORMULA BOXES ─── */
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .formula-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .formula-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .formula-box.blue::before { background: linear-gradient(to right, transparent, var(--blue), transparent); }
+  .formula-box.cyan::before { background: linear-gradient(to right, transparent, var(--cyan), transparent); }
+  .formula-box.purple::before { background: linear-gradient(to right, transparent, var(--purple), transparent); }
+  .formula-box.gold::before { background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .formula-box.pink::before { background: linear-gradient(to right, transparent, var(--pink), transparent); }
+  .formula-box.green::before { background: linear-gradient(to right, transparent, var(--green), transparent); }
+  .formula-box.orange::before { background: linear-gradient(to right, transparent, var(--orange), transparent); }
+
+  .formula {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .formula-label {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── SINE WAVE ANIMATION ─── */
+  .wave-demo {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .wave-demo canvas {
+    width: 100%;
+    height: 120px;
+    display: block;
+  }
+
+  .wave-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ─── HIGHLIGHT BOXES ─── */
+  .highlight {
+    border-left: 3px solid;
+    padding: 16px 20px;
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+    background: var(--bg2);
+  }
+
+  .highlight.blue { border-color: var(--blue); }
+  .highlight.cyan { border-color: var(--cyan); }
+  .highlight.purple { border-color: var(--purple); }
+  .highlight.gold { border-color: var(--gold); }
+  .highlight.green { border-color: var(--green); }
+  .highlight.orange { border-color: var(--orange); }
+
+  .highlight strong { color: var(--text); }
+  .highlight p { color: #a0aec0; font-size: 14px; margin-top: 4px; }
+
+  /* ─── TABLE ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--card2);
+    color: var(--blue);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #a0aec0;
+  }
+
+  td:first-child { color: var(--text); font-weight: 600; }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ─── TRANSFORMER DIAGRAM ─── */
+  .transformer-svg {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 20px auto;
+  }
+
+  /* ─── THREE PHASE ─── */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .phase-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .phase-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .phase-card.star h4 { color: var(--cyan); }
+  .phase-card.triangle h4 { color: var(--orange); }
+
+  /* ─── LIGHT SPECTRUM ─── */
+  .spectrum {
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(to right,
+      #380070 0%,      /* UV */
+      #6600cc 8%,      /* violet */
+      #4400ff 16%,     /* blue-violet */
+      #0044ff 24%,     /* blue */
+      #0099ff 32%,     /* cyan */
+      #00cc44 40%,     /* green */
+      #88ff00 50%,     /* yellow-green */
+      #ffff00 58%,     /* yellow */
+      #ff8800 66%,     /* orange */
+      #ff2200 74%,     /* red */
+      #880000 82%,     /* deep red */
+      #330000 90%,     /* IR */
+      #1a0000 100%
+    );
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .spectrum-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ─── PHOTON CARD ─── */
+  .photon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .photon-fact {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .photon-fact .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .photon-fact .value {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .photon-fact .desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── WAVE PROPERTIES VISUAL ─── */
+  .wave-props {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  /* ─── BADGE ─── */
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .badge.bonus { background: rgba(246,224,94,0.15); color: var(--gold); border: 1px solid rgba(246,224,94,0.3); }
+  .badge.new { background: rgba(104,211,145,0.15); color: var(--green); border: 1px solid rgba(104,211,145,0.3); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 60px 0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ─── INTERACTIVE TOGGLE ─── */
+  .toggle-section {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle-section .toggle-icon {
+    float: right;
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.3s;
+  }
+
+  .toggle-content {
+    display: none;
+    margin-top: 16px;
+  }
+
+  .toggle-content.open { display: block; }
+  .toggle-section.open .toggle-icon { transform: rotate(180deg); }
+
+  /* ─── LIST STYLES ─── */
+  .styled-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .styled-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: #a0aec0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+
+  .styled-list li:last-child { border-bottom: none; }
+
+  .styled-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ─── UNIT TABLE ─── */
+  .unit-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    background: rgba(99,179,237,0.1);
+    color: var(--blue);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .formula-grid { grid-template-columns: 1fr 1fr; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-wave"></div>
+  <div class="header-tag">⚡ Fyzika · Střídavý proud & Světlo</div>
+  <h1>
+    <span class="title-ac">Elektrické</span><br>
+    <span class="title-light">Jevy & Světlo</span>
+  </h1>
+  <p class="header-sub">Komplexní průvodce střídavým proudem, transformátory, trojfázovou soustavou a světlem</p>
+</header>
+
+<nav>
+  <a href="#stridavy">Střídavý proud</a>
+  <a href="#obvod">Obvod s R</a>
+  <a href="#vykon">Výkon</a>
+  <a href="#trojfazova">Trojfázová</a>
+  <a href="#transformator">Transformátor</a>
+  <a href="#vlneni">Světlo–vlnění</a>
+  <a href="#fotony">Světlo–fotony</a>
+</nav>
+
+<main>
+
+  <!-- ═══════════════════════════════════ 1. STŘÍDAVÝ PROUD ═══ -->
+  <section class="section" id="stridavy">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2><span class="accent">Střídavý</span> proud</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Co je střídavý proud?</div>
+      <p>Střídavý proud (AC) je elektrický proud, jehož <strong>směr se periodicky mění</strong>. Na rozdíl od stejnosměrného proudu (DC) se okamžitá hodnota napětí a proudu mění jako funkce sinu.</p>
+      <p>V ČR a celé EU je frekvence střídavého proudu <strong>f = 50 Hz</strong>, což znamená 50 plných period za sekundu.</p>
+    </div>
+
+    <div class="wave-demo">
+      <canvas id="waveCanvas"></canvas>
+      <div class="wave-labels">
+        <span>u(t) — napětí</span>
+        <span style="color: var(--cyan)">i(t) — proud</span>
+        <span>T = 20 ms (f = 50 Hz)</span>
+      </div>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box blue">
+        <div class="formula">u = U<sub>m</sub> · sin(ωt)</div>
+        <div class="formula-label">Okamžitá hodnota napětí</div>
+      </div>
+      <div class="formula-box cyan">
+        <div class="formula">i = I<sub>m</sub> · sin(ωt)</div>
+        <div class="formula-label">Okamžitá hodnota proudu</div>
+      </div>
+      <div class="formula-box purple">
+        <div class="formula">ω = 2πf</div>
+        <div class="formula-label">Úhlová frekvence [rad/s]</div>
+      </div>
+      <div class="formula-box gold">
+        <div class="formula">T = 1/f</div>
+        <div class="formula-label">Perioda [s]</div>
+      </div>
+    </div>
+
+    <div class="highlight blue">
+      <strong>⚡ V síti (ČR):</strong>
+      <p>U<sub>m</sub> = 325 V (amplituda) · U = 230 V (efektivní) · f = 50 Hz · T = 20 ms</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Efektivní hodnota</div>
+      <p>Efektivní hodnota je taková hodnota stejnosměrného napětí/proudu, která by na rezistoru vykonala <strong>stejnou práci jako střídavý proud</strong>.</p>
+      <div class="formula-grid" style="margin-top:16px">
+        <div class="formula-box blue">
+          <div class="formula">U = U<sub>m</sub> / √2</div>
+          <div class="formula-label">Efektivní napětí</div>
+        </div>
+        <div class="formula-box cyan">
+          <div class="formula">I = I<sub>m</sub> / √2</div>
+          <div class="formula-label">Efektivní proud</div>
+        </div>
+      </div>
+      <div class="highlight cyan" style="margin-top:16px">
+        <strong>💡 Příklad:</strong>
+        <p>Síťové napětí 230 V je efektivní hodnota. Amplituda (maximum) je U<sub>m</sub> = 230 · √2 ≈ 325 V</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Veličina</th>
+          <th>Symbol</th>
+          <th>Jednotka</th>
+          <th>Popis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Amplituda napětí</td><td>U<sub>m</sub></td><td class="unit-tag">V</td><td>Maximální hodnota napětí</td></tr>
+        <tr><td>Efektivní napětí</td><td>U</td><td class="unit-tag">V</td><td>U = U<sub>m</sub>/√2</td></tr>
+        <tr><td>Frekvence</td><td>f</td><td class="unit-tag">Hz</td><td>Počet period za sekundu</td></tr>
+        <tr><td>Úhlová frekvence</td><td>ω</td><td class="unit-tag">rad/s</td><td>ω = 2πf</td></tr>
+        <tr><td>Perioda</td><td>T</td><td class="unit-tag">s</td><td>Čas jedné periody, T = 1/f</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════════════════════ 2. OBVOD S REZISTOREM ═══ -->
+  <section class="section" id="obvod">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>Obvod <span class="accent-c">s rezistorem</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Součástky střídavého obvodu</div>
+      <ul class="styled-list">
+        <li><strong>Rezistor (R)</strong> — odporová vlastnost, plně přeměňuje el. energii na teplo</li>
+        <li><strong>Cívka (L)</strong> — indukčnost, zpožďuje proud za napětím (proud jde "za" napětím)</li>
+        <li><strong>Kondenzátor (C)</strong> — kapacita, předbíhá proud před napětím</li>
+      </ul>
+    </div>
+
+    <div class="highlight blue">
+      <strong>🔵 Čistě odporový obvod (jen R):</strong>
+      <p>Napětí a proud jsou ve <strong>stejné fázi</strong> — průchází nulou a dosahují maxima ve stejný okamžik. Fázový posun φ = 0°.</p>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box blue">
+        <div class="formula">I<sub>m</sub> = U<sub>m</sub> / R</div>
+        <div class="formula-label">Amplituda proudu</div>
+      </div>
+      <div class="formula-box cyan">
+        <div class="formula">i = I<sub>m</sub> · sin(ωt)</div>
+        <div class="formula-label">Okamžitá hodnota proudu</div>
+      </div>
+      <div class="formula-box purple">
+        <div class="formula">I = U / R</div>
+        <div class="formula-label">Ohmův zákon (efektivní hodnoty)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fázorový diagram</div>
+      <p>Napětí a proud v obvodu s rezistorem jsou <strong>ve fázi</strong> — oba vektory (fázory) míří stejným směrem. Fázový posun φ = 0.</p>
+      <svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:20px auto">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#63b3ed"/>
+          </marker>
+          <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#4fd1c5"/>
+          </marker>
+        </defs>
+        <!-- Axes -->
+        <line x1="30" y1="80" x2="270" y2="80" stroke="#2d3748" stroke-width="1"/>
+        <line x1="150" y1="20" x2="150" y2="140" stroke="#2d3748" stroke-width="1"/>
+        <!-- U vector -->
+        <line x1="150" y1="80" x2="250" y2="80" stroke="#63b3ed" stroke-width="3" marker-end="url(#arrow)"/>
+        <text x="255" y="75" fill="#63b3ed" font-size="14" font-family="Space Mono">U</text>
+        <!-- I vector (same direction, slightly offset) -->
+        <line x1="150" y1="85" x2="220" y2="85" stroke="#4fd1c5" stroke-width="3" marker-end="url(#arrow2)"/>
+        <text x="225" y="100" fill="#4fd1c5" font-size="14" font-family="Space Mono">I</text>
+        <text x="90" y="120" fill="#718096" font-size="11" font-family="Space Mono">φ = 0° (ve fázi)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ 3. VÝKON ═══ -->
+  <section class="section" id="vykon">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>Výkon <span class="accent-p">střídavého</span> proudu</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Výkon a účiník</div>
+      <p>Ve střídavých obvodech se rozlišuje více druhů výkonu. Klíčovým pojmem je <strong>účiník cos φ</strong>, který udává, jaká část zdánlivého výkonu se skutečně přeměňuje na užitečnou práci.</p>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box purple">
+        <div class="formula">P = U · I · cos φ</div>
+        <div class="formula-label">Činný výkon [W]</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="formula">S = U · I</div>
+        <div class="formula-label">Zdánlivý výkon [VA]</div>
+      </div>
+      <div class="formula-box cyan">
+        <div class="formula">Q = U · I · sin φ</div>
+        <div class="formula-label">Jalový výkon [var]</div>
+      </div>
+      <div class="formula-box gold">
+        <div class="formula">cos φ = P / S</div>
+        <div class="formula-label">Účiník (power factor)</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Prvek</th><th>Fázový posun φ</th><th>cos φ</th><th>Výkon</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Rezistor R</td><td>φ = 0°</td><td>cos φ = 1</td><td>P = U · I (maximum)</td></tr>
+        <tr><td>Čistá cívka L</td><td>φ = +90°</td><td>cos φ = 0</td><td>P = 0 W !</td></tr>
+        <tr><td>Čistý kondenzátor C</td><td>φ = −90°</td><td>cos φ = 0</td><td>P = 0 W !</td></tr>
+        <tr><td>Reálný obvod</td><td>0° < φ < 90°</td><td>0 < cos φ < 1</td><td>P = U·I·cos φ</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight gold">
+      <strong>☀️ Rekuperace energie:</strong>
+      <p>U obvodu s čistě indukční nebo kapacitní zátěží je φ = 90°, cos φ = 0 a <strong>energie se nepřeměňuje na teplo</strong>, ale vrací se zpět do zdroje — to je princip rekuperace (např. regenerativní brzdění u el. vozidel).</p>
+    </div>
+
+    <div class="highlight purple">
+      <strong>🔌 Efektivní hodnoty a výkon:</strong>
+      <p>P = U · I = (U<sub>m</sub>/√2) · (I<sub>m</sub>/√2) = U<sub>m</sub> · I<sub>m</sub> / 2</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ 4. TROJFÁZOVÁ ═══ -->
+  <section class="section" id="trojfazova">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>Trojfázová <span class="accent">soustava</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Co je trojfázová soustava?</div>
+      <p>Trojfázová soustava je sada <strong>tří střídavých napětí</strong> stejné amplitudy a frekvence, navzájem posunutých o <strong>120°</strong>. Vyrábí ji alternátor (generátor) — má rotor (pohyblivý elektromagnet) a stator (3 statorová cívky).</p>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0">
+      <canvas id="threePhaseCanvas" style="width:100%;height:150px;display:block"></canvas>
+      <div style="display:flex;gap:20px;margin-top:12px;font-size:12px;font-family:'Space Mono',monospace">
+        <span style="color:#63b3ed">— Fáze L1 (0°)</span>
+        <span style="color:#f6ad55">— Fáze L2 (−120°)</span>
+        <span style="color:#68d391">— Fáze L3 (−240°)</span>
+      </div>
+    </div>
+
+    <div class="phase-grid">
+      <div class="phase-card star">
+        <h4>⭐ Zapojení do hvězdy (Y)</h4>
+        <ul class="styled-list">
+          <li>Všechny 3 konce vinutí spojeny v <strong>uzlu (N)</strong></li>
+          <li>Fázové napětí Up = 230 V</li>
+          <li>Sdružené napětí Us = √3 · Up ≈ <strong>398 V</strong></li>
+          <li>Používá se pro rozvod energie (4 vodiče)</li>
+          <li>Umožňuje odběr 230 V i 398 V</li>
+        </ul>
+      </div>
+      <div class="phase-card triangle">
+        <h4>△ Zapojení do trojúhelníku (Δ)</h4>
+        <ul class="styled-list">
+          <li>Konce vinutí zapojeny do smyčky</li>
+          <li>Fázové napětí = sdružené napětí</li>
+          <li>Pouze 3 vodiče (žádný neutrál)</li>
+          <li>Používá se pro průmyslové motory</li>
+          <li>Vhodné pro symetrické zátěže</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box cyan">
+        <div class="formula">U<sub>s</sub> = √3 · U<sub>p</sub></div>
+        <div class="formula-label">Sdružené / fázové napětí (hvězda)</div>
+      </div>
+      <div class="formula-box orange">
+        <div class="formula">U<sub>s</sub> = U<sub>p</sub></div>
+        <div class="formula-label">Trojúhelník — Us = Up</div>
+      </div>
+    </div>
+
+    <div class="highlight cyan">
+      <strong>📐 Výpočet:</strong>
+      <p>U<sub>s</sub> = √3 · 230 V = 1,732 · 230 = <strong>398 V</strong> (sdružené napětí v rozvodné síti)</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Nezávislost fází</div>
+      <p>Velkou výhodou trojfázové soustavy je, že <strong>přerušení jedné fáze neovlivní ostatní</strong>. Napětí ostatních fází zůstává stejné. Proto se trojfázová soustava používá pro přenos el. energie na velké vzdálenosti — je ekonomičtější než tři samostatné jednofázové vedení.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ 5. TRANSFORMÁTOR ═══ -->
+  <section class="section" id="transformator">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>Trans<span class="accent-p">formátor</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Princip funkce</div>
+      <p>Transformátor je elektromagnetický stroj, který <strong>přenáší elektrickou energii</strong> z primárního obvodu do sekundárního pomocí <strong>magnetické indukce</strong>. Přitom mění napětí a proud, ale nemění frekvenci ani příkon (ideální transformátor).</p>
+      <p style="margin-top:10px">Využití: nabíječky (mobil, notebook), elektrické spotřebiče, distribuce el. energie (VN/NN transformátory).</p>
+    </div>
+
+    <!-- Transformer SVG diagram -->
+    <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;border:1px solid var(--border);border-radius:12px;background:var(--bg2);display:block;margin:20px 0">
+      <!-- Iron core -->
+      <rect x="200" y="40" width="160" height="140" rx="6" fill="none" stroke="#4a5568" stroke-width="2"/>
+      <rect x="230" y="70" width="100" height="80" rx="4" fill="#1a2535"/>
+      <!-- Primary coil lines -->
+      <g stroke="#63b3ed" stroke-width="2.5" fill="none">
+        <path d="M100,90 Q115,75 130,90 Q145,105 160,90 Q175,75 190,90 Q205,105 220,90"/>
+        <path d="M100,110 Q115,95 130,110 Q145,125 160,110 Q175,95 190,110 Q205,125 220,110"/>
+        <path d="M100,130 Q115,115 130,130 Q145,145 160,130 Q175,115 190,130 Q205,145 220,130"/>
+      </g>
+      <!-- Secondary coil lines -->
+      <g stroke="#b794f4" stroke-width="2.5" fill="none">
+        <path d="M340,90 Q355,75 370,90 Q385,105 400,90 Q415,75 430,90 Q445,105 460,90"/>
+        <path d="M340,110 Q355,95 370,110 Q385,125 400,110 Q415,95 430,110 Q445,125 460,110"/>
+      </g>
+      <!-- Wires primary -->
+      <line x1="40" y1="100" x2="100" y2="100" stroke="#63b3ed" stroke-width="2"/>
+      <line x1="40" y1="130" x2="100" y2="130" stroke="#63b3ed" stroke-width="2"/>
+      <line x1="100" y1="100" x2="100" y2="90" stroke="#63b3ed" stroke-width="2"/>
+      <line x1="100" y1="130" x2="100" y2="130" stroke="#63b3ed" stroke-width="2"/>
+      <!-- Wires secondary -->
+      <line x1="460" y1="95" x2="520" y2="95" stroke="#b794f4" stroke-width="2"/>
+      <line x1="460" y1="115" x2="520" y2="115" stroke="#b794f4" stroke-width="2"/>
+      <!-- Labels -->
+      <text x="55" y="92" fill="#63b3ed" font-size="13" font-family="Space Mono">U₁</text>
+      <text x="55" y="150" fill="#63b3ed" font-size="11" font-family="Space Mono">primár</text>
+      <text x="475" y="92" fill="#b794f4" font-size="13" font-family="Space Mono">U₂</text>
+      <text x="470" y="145" fill="#b794f4" font-size="11" font-family="Space Mono">sekundár</text>
+      <text x="245" y="118" fill="#718096" font-size="11" font-family="Space Mono">mag.</text>
+      <text x="245" y="132" fill="#718096" font-size="11" font-family="Space Mono">obvod</text>
+      <text x="140" y="185" fill="#63b3ed" font-size="12" font-family="Space Mono">N₁ závitů</text>
+      <text x="360" y="185" fill="#b794f4" font-size="12" font-family="Space Mono">N₂ závitů</text>
+      <!-- Arrow for current directions -->
+      <text x="35" y="118" fill="#4fd1c5" font-size="18">→</text>
+      <text x="503" y="102" fill="#4fd1c5" font-size="18">→</text>
+      <text x="10" y="120" fill="#4fd1c5" font-size="11" font-family="Space Mono">I₁</text>
+      <text x="524" y="102" fill="#4fd1c5" font-size="11" font-family="Space Mono">I₂</text>
+    </svg>
+
+    <div class="formula-grid">
+      <div class="formula-box blue">
+        <div class="formula">N₁/N₂ = U₁/U₂</div>
+        <div class="formula-label">Poměr napětí = poměr závitů</div>
+      </div>
+      <div class="formula-box purple">
+        <div class="formula">U₁/U₂ = I₂/I₁</div>
+        <div class="formula-label">Napětí a proud jsou nepřímo úměrné</div>
+      </div>
+      <div class="formula-box green">
+        <div class="formula">P₁ = P₂</div>
+        <div class="formula-label">Příkon = výkon (ideální transf.)</div>
+      </div>
+      <div class="formula-box gold">
+        <div class="formula">p = N₂/N₁</div>
+        <div class="formula-label">Převodní poměr</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Typ transformátoru</th><th>Převodní poměr p</th><th>Napětí</th><th>Použití</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Zvyšovací</td><td>p = N₂/N₁ > 1</td><td>U₂ > U₁</td><td>VVN přenos energie</td></tr>
+        <tr><td>Snižovací</td><td>p = N₂/N₁ < 1</td><td>U₂ < U₁</td><td>Nabíječky, spotřebiče</td></tr>
+        <tr><td>Oddělovací</td><td>p = 1</td><td>U₂ = U₁</td><td>Galvanické oddělení obvodů</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight green">
+      <strong>✅ Klíčová rovnice — sekundární obvod připojen přes R:</strong>
+      <p>p(%) = N₂/N₁ = U₂/U₁ = I₁/I₂ &nbsp;|&nbsp; P₁ = U₁·I₁ = P₂ = U₂·I₂</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════ 6. SVĚTLO — VLNĚNÍ ═══ -->
+  <section class="section" id="vlneni">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>Světlo jako <span class="accent-g">vlnění</span> <span class="badge bonus">BONUS</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Elektromagnetické vlnění</div>
+      <p>Světlo je <strong>příčné elektromagnetické vlnění</strong> — kolmé oscilace elektrického a magnetického pole šířící se prostorem bez hmotného prostředí (může se šířit i vakuem).</p>
+      <p>Viditelné světlo je jen malá část širokého spektra elektromagnetického záření od rádiových vln až po gama záření.</p>
+    </div>
+
+    <!-- Animated EM Wave SVG -->
+    <div class="wave-props">
+      <svg id="emWave" viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#63b3ed" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#63b3ed" stop-opacity="0.3"/>
+          </linearGradient>
+          <linearGradient id="waveGrad2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#f6e05e" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#f6e05e" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#f6e05e" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+        <!-- Direction arrow -->
+        <line x1="30" y1="80" x2="570" y2="80" stroke="#2d3748" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="540" y="75" fill="#718096" font-size="11" font-family="Space Mono">→ c</text>
+        <!-- E-field wave (blue) -->
+        <path id="eWavePath" stroke="url(#waveGrad)" stroke-width="2.5" fill="none"/>
+        <!-- B-field wave (gold, 90° rotated — shown in 2D as offset) -->
+        <path id="bWavePath" stroke="url(#waveGrad2)" stroke-width="2.5" fill="none" opacity="0.8"/>
+        <!-- Labels -->
+        <text x="10" y="50" fill="#63b3ed" font-size="12" font-family="Space Mono">E</text>
+        <text x="10" y="110" fill="#f6e05e" font-size="12" font-family="Space Mono">B</text>
+        <!-- Lambda label -->
+        <text x="250" y="20" fill="#718096" font-size="11" font-family="Space Mono">← λ →</text>
+        <!-- Amplitude label -->
+        <text x="575" y="45" fill="#63b3ed" font-size="10" font-family="Space Mono">A</text>
+      </svg>
+      <div style="display:flex;gap:24px;margin-top:8px;font-size:12px;font-family:'Space Mono',monospace">
+        <span style="color:var(--blue)">— Elektrické pole E</span>
+        <span style="color:var(--gold)">— Magnetické pole B (kolmé na E)</span>
+      </div>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box blue">
+        <div class="formula">c = λ · f</div>
+        <div class="formula-label">Rychlost světla = vlnová délka × frekvence</div>
+      </div>
+      <div class="formula-box gold">
+        <div class="formula">c = 3·10⁸ m/s</div>
+        <div class="formula-label">Rychlost světla ve vakuu</div>
+      </div>
+      <div class="formula-box cyan">
+        <div class="formula">λ = c / f</div>
+        <div class="formula-label">Vlnová délka [m]</div>
+      </div>
+      <div class="formula-box purple">
+        <div class="formula">f = c / λ</div>
+        <div class="formula-label">Frekvence [Hz]</div>
+      </div>
+      <div class="formula-box green">
+        <div class="formula">n = c / v</div>
+        <div class="formula-label">Index lomu (v = rychlost v látce)</div>
+      </div>
+      <div class="formula-box pink">
+        <div class="formula">T = 1 / f</div>
+        <div class="formula-label">Perioda vlny [s]</div>
+      </div>
+    </div>
+
+    <!-- Spectrum -->
+    <div class="card">
+      <div class="card-title">Elektromagnetické spektrum</div>
+      <div class="spectrum"></div>
+      <div class="spectrum-labels">
+        <span>UV (&lt;380nm)</span>
+        <span>fialová</span>
+        <span>modrá</span>
+        <span>zelená</span>
+        <span>žlutá</span>
+        <span>červená</span>
+        <span>IR (&gt;750nm)</span>
+      </div>
+      <div style="margin-top:16px">
+        <table>
+          <thead>
+            <tr><th>Barva</th><th>Vlnová délka λ</th><th>Frekvence f</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="color:#9b59b6">Fialová</td><td>380–430 nm</td><td>700–790 THz</td></tr>
+            <tr><td style="color:#3498db">Modrá</td><td>430–490 nm</td><td>610–700 THz</td></tr>
+            <tr><td style="color:#27ae60">Zelená</td><td>490–560 nm</td><td>530–610 THz</td></tr>
+            <tr><td style="color:#f39c12">Žlutá</td><td>560–590 nm</td><td>510–530 THz</td></tr>
+            <tr><td style="color:#e67e22">Oranžová</td><td>590–620 nm</td><td>480–510 THz</td></tr>
+            <tr><td style="color:#e74c3c">Červená</td><td>620–750 nm</td><td>400–480 THz</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Vlnové jevy světla</div>
+      <ul class="styled-list">
+        <li><strong>Odraz (reflexe)</strong> — světlo se odráží od plochy (zrcadlo); úhel dopadu = úhel odrazu</li>
+        <li><strong>Lom (refrakce)</strong> — světlo mění směr při přechodu mezi prostředími s různým indexem lomu</li>
+        <li><strong>Difrakce (ohyb)</strong> — světlo se ohýbá kolem překážek a rozpadá na interferenční vzor</li>
+        <li><strong>Interference</strong> — superpozice dvou vln: konstruktivní (zesilování) nebo destruktivní (zeslabování)</li>
+        <li><strong>Polarizace</strong> — světlo vibruje jen v jedné rovině (sluneční brýle, LCD displeje)</li>
+        <li><strong>Disperze</strong> — rozklad bílého světla hranolem na spektrum (duha)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ 7. SVĚTLO — FOTONY ═══ -->
+  <section class="section" id="fotony">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>Světlo jako <span class="accent-g">fotony</span> <span class="badge new">KVANTOVÁ FYZIKA</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Vlnově-korpuskulární dualismus</div>
+      <p>Světlo má <strong>dvojí povahu</strong> — chová se jak jako vlna (interference, difrakce), tak jako částice = <strong>foton</strong>. Tuto zdánlivou paradoxnost popsali Einstein a Planck na začátku 20. století.</p>
+      <p>Foton je základní kvantum elektromagnetického záření — <strong>energetický balík</strong> bez klidové hmotnosti, pohybující se vždy rychlostí světla c.</p>
+    </div>
+
+    <div class="photon-grid">
+      <div class="photon-fact">
+        <span class="icon">🌟</span>
+        <div class="value">E = h·f</div>
+        <div class="desc">Energie fotonu závisí na frekvenci</div>
+      </div>
+      <div class="photon-fact">
+        <span class="icon">⚡</span>
+        <div class="value">h = 6,626·10⁻³⁴ J·s</div>
+        <div class="desc">Planckova konstanta</div>
+      </div>
+      <div class="photon-fact">
+        <span class="icon">💨</span>
+        <div class="value">m₀ = 0</div>
+        <div class="desc">Foton nemá klidovou hmotnost</div>
+      </div>
+      <div class="photon-fact">
+        <span class="icon">🚀</span>
+        <div class="value">v = c = 3·10⁸ m/s</div>
+        <div class="desc">Pohybuje se vždy rychlostí světla</div>
+      </div>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box gold">
+        <div class="formula">E = h · f</div>
+        <div class="formula-label">Energie fotonu (Planckův zákon)</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="formula">E = h · c / λ</div>
+        <div class="formula-label">Energie pomocí vlnové délky</div>
+      </div>
+      <div class="formula-box purple">
+        <div class="formula">p = h / λ</div>
+        <div class="formula-label">Hybnost fotonu (de Broglie)</div>
+      </div>
+      <div class="formula-box pink">
+        <div class="formula">E = m · c²</div>
+        <div class="formula-label">Einstein – ekvivalence hmoty a energie</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fotoelektrický jev (fotoefekt)</div>
+      <p>Einstein v roce 1905 (za což dostal Nobelovu cenu) vysvětlil, proč světlo vyráží elektrony z kovových povrchů. Klíčový poznatek: energie předaná elektronovi závisí na <strong>frekvenci světla</strong>, ne na jeho intenzitě.</p>
+      <div class="formula-grid" style="margin-top:16px">
+        <div class="formula-box gold">
+          <div class="formula">E<sub>k</sub> = h·f − W</div>
+          <div class="formula-label">Kinetická energie vyraženého elektronu</div>
+        </div>
+        <div class="formula-box pink">
+          <div class="formula">W = h · f₀</div>
+          <div class="formula-label">Výstupní práce (prahová frekvence)</div>
+        </div>
+      </div>
+      <div class="highlight gold" style="margin-top:16px">
+        <strong>💡 Kde se využívá fotoefekt:</strong>
+        <p>Solární články (FV panely) · Digitální fotoaparáty (CCD senzory) · Fotoodpory · Noktovizory · Fotomultiplikátory</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Srovnání: Vlna vs. Foton</div>
+      <table>
+        <thead>
+          <tr><th>Vlastnost</th><th>Světlo jako vlna</th><th>Světlo jako foton</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jevy</td><td>Interference, difrakce, polarizace</td><td>Fotoefekt, Comptonův rozptyl</td></tr>
+          <tr><td>Energie</td><td>Kontinuálně rozložená</td><td>E = h·f (diskrétní kvanta)</td></tr>
+          <tr><td>Šíření</td><td>Vlnové plochy</td><td>Přímé trajektorie</td></tr>
+          <tr><td>Hmotnost</td><td>Bezhmotnostní pole</td><td>m₀ = 0, ale hybnost p = h/λ</td></tr>
+          <tr><td>Model</td><td>Maxwell, 19. stol.</td><td>Planck, Einstein, 20. stol.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight purple">
+      <strong>🌌 Heisenbergův princip neurčitosti:</strong>
+      <p>Čím přesněji změříme polohu fotonu (nebo jiné kvantové částice), tím méně přesně známe jeho hybnost — a naopak. Δx · Δp ≥ ħ/2. Toto není technologické omezení, ale fundamentální vlastnost přírody.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ⚡ Fyzika — Střídavý proud & Světlo · Verze 1.0 · Pro cvičné příklady otevři <strong>fyzika-cviceni.html</strong>
+</footer>
+
+<script>
+// ─── SINE WAVE CANVAS ───────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('waveCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+
+  function resize() {
+    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+    canvas.height = 120 * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+
+  function draw() {
+    const W = canvas.offsetWidth, H = 120;
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += W/8) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    // Center line
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
+
+    // Voltage wave (blue)
+    ctx.strokeStyle = '#63b3ed';
+    ctx.lineWidth = 2.5;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = '#63b3ed';
+    ctx.beginPath();
+    for (let x = 0; x <= W; x++) {
+      const angle = (x / W) * 4 * Math.PI + t;
+      const y = H/2 - Math.sin(angle) * (H/2 - 12);
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Current wave (cyan, same phase for resistor)
+    ctx.strokeStyle = '#4fd1c5';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = '#4fd1c5';
+    ctx.beginPath();
+    for (let x = 0; x <= W; x++) {
+      const angle = (x / W) * 4 * Math.PI + t;
+      const y = H/2 - Math.sin(angle) * (H/2 - 22) * 0.6;
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    t += 0.025;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+// ─── THREE PHASE CANVAS ─────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('threePhaseCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+
+  function resize() {
+    canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+    canvas.height = 150 * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+
+  function draw() {
+    const W = canvas.offsetWidth, H = 150;
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
+
+    const phases = [
+      { color: '#63b3ed', glow: '#63b3ed', offset: 0 },
+      { color: '#f6ad55', glow: '#f6ad55', offset: (2*Math.PI)/3 },
+      { color: '#68d391', glow: '#68d391', offset: (4*Math.PI)/3 },
+    ];
+
+    phases.forEach(ph => {
+      ctx.strokeStyle = ph.color;
+      ctx.lineWidth = 2;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = ph.glow;
+      ctx.beginPath();
+      for (let x = 0; x <= W; x++) {
+        const angle = (x / W) * 4 * Math.PI + t + ph.offset;
+        const y = H/2 - Math.sin(angle) * (H/2 - 15);
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+    ctx.shadowBlur = 0;
+
+    t += 0.02;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+// ─── EM WAVE SVG ANIMATION ──────────────────────────────────────
+(function() {
+  const ePath = document.getElementById('eWavePath');
+  const bPath = document.getElementById('bWavePath');
+  if (!ePath || !bPath) return;
+  let t = 0;
+
+  function buildPath(amplitude, yCenter, offset) {
+    let d = '';
+    for (let x = 30; x <= 570; x += 4) {
+      const angle = ((x - 30) / 540) * 4 * Math.PI + offset;
+      const y = yCenter + Math.sin(angle) * amplitude;
+      d += (x === 30 ? 'M' : 'L') + x + ',' + y + ' ';
+    }
+    return d;
+  }
+
+  function animate() {
+    ePath.setAttribute('d', buildPath(35, 55, t));
+    bPath.setAttribute('d', buildPath(30, 105, t));
+    t += 0.04;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
+</script>
+</body>
+</html>

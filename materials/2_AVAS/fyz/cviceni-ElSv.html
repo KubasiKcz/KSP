@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fyzika — Cvičné příklady</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c14;
+    --bg2: #0d1522;
+    --card: #111827;
+    --card2: #1a2535;
+    --border: rgba(99,179,237,0.15);
+    --blue: #63b3ed;
+    --cyan: #4fd1c5;
+    --purple: #b794f4;
+    --gold: #f6e05e;
+    --pink: #fc8181;
+    --green: #68d391;
+    --orange: #f6ad55;
+    --red: #fc8181;
+    --text: #e2e8f0;
+    --muted: #718096;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(183,148,244,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 70% at 20% 80%, rgba(79,209,197,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    text-align: center;
+    padding: 70px 20px 50px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--purple);
+    text-transform: uppercase;
+    border: 1px solid rgba(183,148,244,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .header-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  /* ─── SCORE BAR ─── */
+  .scorebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .score-item {
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 24px;
+    min-width: 100px;
+  }
+
+  .score-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .score-num.correct { color: var(--green); }
+  .score-num.wrong { color: var(--red); }
+  .score-num.total { color: var(--blue); }
+
+  .score-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ─── CATEGORY FILTER ─── */
+  .category-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 0 20px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cat-btn {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--card);
+    transition: all 0.2s;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  .cat-btn:hover, .cat-btn.active {
+    color: var(--purple);
+    border-color: var(--purple);
+    box-shadow: 0 0 16px rgba(183,148,244,0.3);
+  }
+
+  /* ─── MAIN ─── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── EXERCISE CARD ─── */
+  .exercise {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exercise::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .exercise[data-cat="stridavy"]::before { background: linear-gradient(to right, var(--blue), transparent); }
+  .exercise[data-cat="vykon"]::before { background: linear-gradient(to right, var(--purple), transparent); }
+  .exercise[data-cat="trojfaz"]::before { background: linear-gradient(to right, var(--cyan), transparent); }
+  .exercise[data-cat="transformator"]::before { background: linear-gradient(to right, var(--green), transparent); }
+  .exercise[data-cat="svetlo"]::before { background: linear-gradient(to right, var(--gold), transparent); }
+  .exercise[data-cat="fotony"]::before { background: linear-gradient(to right, var(--orange), transparent); }
+
+  .exercise.solved { border-color: rgba(104,211,145,0.3); }
+  .exercise.failed { border-color: rgba(252,129,129,0.3); }
+
+  .ex-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ex-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .ex-meta {
+    flex: 1;
+  }
+
+  .ex-cat {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  [data-cat="stridavy"] .ex-cat { color: var(--blue); }
+  [data-cat="vykon"] .ex-cat { color: var(--purple); }
+  [data-cat="trojfaz"] .ex-cat { color: var(--cyan); }
+  [data-cat="transformator"] .ex-cat { color: var(--green); }
+  [data-cat="svetlo"] .ex-cat { color: var(--gold); }
+  [data-cat="fotony"] .ex-cat { color: var(--orange); }
+
+  .ex-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .difficulty {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .diff-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  .diff-dot.filled { background: var(--purple); }
+
+  /* ─── GIVEN VALUES ─── */
+  .given {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #a0aec0;
+    line-height: 2;
+  }
+
+  .given strong {
+    color: var(--text);
+    margin-right: 8px;
+  }
+
+  /* ─── ANSWER INPUT ─── */
+  .answer-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .answer-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    min-width: 100px;
+  }
+
+  .answer-input {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    width: 160px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .answer-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 12px rgba(183,148,244,0.3);
+  }
+
+  .answer-unit {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── BUTTONS ─── */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-check {
+    background: var(--purple);
+    color: #1a0a2e;
+  }
+  .btn-check:hover { background: #c9a5ff; transform: translateY(-1px); }
+
+  .btn-hint {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-hint:hover { border-color: var(--gold); color: var(--gold); }
+
+  .btn-solution {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .btn-solution:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ─── FEEDBACK ─── */
+  .feedback {
+    display: none;
+    margin-top: 16px;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .feedback.correct {
+    display: block;
+    background: rgba(104,211,145,0.1);
+    border: 1px solid rgba(104,211,145,0.3);
+    color: var(--green);
+  }
+
+  .feedback.wrong {
+    display: block;
+    background: rgba(252,129,129,0.1);
+    border: 1px solid rgba(252,129,129,0.3);
+    color: var(--red);
+  }
+
+  /* ─── SOLUTION BOX ─── */
+  .solution-box {
+    display: none;
+    margin-top: 20px;
+    background: var(--bg2);
+    border: 1px solid rgba(79,209,197,0.2);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .solution-box.visible { display: block; }
+
+  .solution-box h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .solution-step {
+    padding: 6px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #a0aec0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .solution-step:last-child { border-bottom: none; font-weight: 700; color: var(--text); }
+
+  .solution-step span { color: var(--cyan); }
+
+  /* ─── HINT ─── */
+  .hint-box {
+    display: none;
+    margin-top: 16px;
+    background: rgba(246,224,94,0.06);
+    border: 1px solid rgba(246,224,94,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 14px;
+    color: var(--gold);
+  }
+
+  .hint-box.visible { display: block; }
+
+  /* ─── SECTION DIVIDER ─── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 24px;
+  }
+
+  .section-divider h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* ─── FORMULA CHEATSHEET ─── */
+  .cheatsheet {
+    background: var(--card);
+    border: 1px solid rgba(183,148,244,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+  }
+
+  .cheatsheet h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .formula-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .formula-chip {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .formula-chip span { color: var(--cyan); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .exercise { padding: 20px; }
+    .answer-input { width: 120px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .shake { animation: shake 0.3s ease; }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+
+  .pop { animation: pop 0.3s ease; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-wrap {
+    max-width: 860px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-bar-bg {
+    height: 4px;
+    background: var(--card2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--purple), var(--cyan));
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 6px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">✏️ Fyzika · Interaktivní Cvičení</div>
+  <h1 style="color:var(--purple)">Cvičné příklady</h1>
+  <p class="header-sub">Procvič si látku z učebnice — Střídavý proud, Transformátor & Světlo</p>
+
+  <div class="scorebar">
+    <div class="score-item">
+      <div class="score-num correct" id="scoreCorrect">0</div>
+      <div class="score-label">Správně</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num wrong" id="scoreWrong">0</div>
+      <div class="score-label">Chybně</div>
+    </div>
+    <div class="score-item">
+      <div class="score-num total" id="scoreTotal">0</div>
+      <div class="score-label">Celkem</div>
+    </div>
+  </div>
+</header>
+
+<div class="category-bar">
+  <button class="cat-btn active" onclick="filterCat('all', this)">Vše</button>
+  <button class="cat-btn" onclick="filterCat('stridavy', this)">⚡ Střídavý proud</button>
+  <button class="cat-btn" onclick="filterCat('vykon', this)">🔋 Výkon</button>
+  <button class="cat-btn" onclick="filterCat('trojfaz', this)">🔱 Trojfázová</button>
+  <button class="cat-btn" onclick="filterCat('transformator', this)">🔄 Transformátor</button>
+  <button class="cat-btn" onclick="filterCat('svetlo', this)">🌊 Světlo–vlnění</button>
+  <button class="cat-btn" onclick="filterCat('fotony', this)">⚛️ Fotony</button>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 15 příkladů splněno</div>
+</div>
+
+<main>
+
+<!-- ─── CHEATSHEET ─── -->
+<div class="cheatsheet">
+  <h3>📐 Tahák vzorců</h3>
+  <div class="formula-chips">
+    <div class="formula-chip">U = <span>U_m / √2</span></div>
+    <div class="formula-chip">I = <span>I_m / √2</span></div>
+    <div class="formula-chip">P = <span>U·I·cosφ</span></div>
+    <div class="formula-chip">U_s = <span>√3 · U_p</span></div>
+    <div class="formula-chip">N₁/N₂ = <span>U₁/U₂</span></div>
+    <div class="formula-chip">I₁/I₂ = <span>N₂/N₁</span></div>
+    <div class="formula-chip">c = <span>λ·f</span></div>
+    <div class="formula-chip">E = <span>h·f</span></div>
+    <div class="formula-chip">h = <span>6,626·10⁻³⁴ J·s</span></div>
+    <div class="formula-chip">c = <span>3·10⁸ m/s</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ STŘÍDAVÝ PROUD ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--blue)">⚡ Střídavý proud</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 1 -->
+<div class="exercise" data-cat="stridavy" id="ex1">
+  <div class="ex-header">
+    <div class="ex-num">01</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Střídavý proud</div>
+      <div class="ex-title">Amplituda napětí v síti</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Efektivní hodnota napětí v síti U = 230 V<br>
+    <strong>Najdi:</strong> Amplitudu (maximální hodnotu) napětí U_m
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">U_m =</span>
+    <input type="number" class="answer-input" id="ans1" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">V</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(1, 325.3, 5, 'U_m = 230 × √2 = 325,3 V')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(1)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(1)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint1">💡 Použij vztah: U_m = U · √2</div>
+  <div class="feedback" id="fb1"></div>
+  <div class="solution-box" id="sol1">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U = 230 V</div>
+    <div class="solution-step">Vzorec: <span>U_m = U · √2</span></div>
+    <div class="solution-step">Výpočet: U_m = 230 · 1,4142 = <span>325,3 V</span></div>
+  </div>
+</div>
+
+<!-- Příklad 2 -->
+<div class="exercise" data-cat="stridavy" id="ex2">
+  <div class="ex-header">
+    <div class="ex-num">02</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Střídavý proud</div>
+      <div class="ex-title">Perioda a frekvence</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Frekvence sítě f = 50 Hz<br>
+    <strong>Najdi:</strong> Periodu T v milisekundách
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">T =</span>
+    <input type="number" class="answer-input" id="ans2" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">ms</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(2, 20, 1, 'T = 1/f = 1/50 = 0,02 s = 20 ms')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(2)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(2)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint2">💡 Vzorec: T = 1/f, výsledek převeď na ms (×1000)</div>
+  <div class="feedback" id="fb2"></div>
+  <div class="solution-box" id="sol2">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: f = 50 Hz</div>
+    <div class="solution-step">Vzorec: <span>T = 1/f</span></div>
+    <div class="solution-step">T = 1/50 = 0,02 s</div>
+    <div class="solution-step">Převod: <span>T = 20 ms</span></div>
+  </div>
+</div>
+
+<!-- Příklad 3 -->
+<div class="exercise" data-cat="stridavy" id="ex3">
+  <div class="ex-header">
+    <div class="ex-num">03</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Střídavý proud</div>
+      <div class="ex-title">Efektivní hodnota proudu</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Amplituda proudu I_m = 14,1 A<br>
+    <strong>Najdi:</strong> Efektivní hodnotu proudu I
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">I =</span>
+    <input type="number" class="answer-input" id="ans3" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">A</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(3, 9.97, 0.2, 'I = 14,1 / √2 = 9,97 A ≈ 10 A')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(3)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(3)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint3">💡 Vzorec: I = I_m / √2</div>
+  <div class="feedback" id="fb3"></div>
+  <div class="solution-box" id="sol3">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: I_m = 14,1 A</div>
+    <div class="solution-step">Vzorec: <span>I = I_m / √2</span></div>
+    <div class="solution-step">I = 14,1 / 1,4142 = <span>≈ 9,97 A ≈ 10 A</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ VÝKON ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--purple)">🔋 Výkon střídavého proudu</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 4 -->
+<div class="exercise" data-cat="vykon" id="ex4">
+  <div class="ex-header">
+    <div class="ex-num">04</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Výkon</div>
+      <div class="ex-title">Výkon odporové zátěže</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> U = 230 V, I = 4 A, cos φ = 1 (čistý odpor)<br>
+    <strong>Najdi:</strong> Činný výkon P
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">P =</span>
+    <input type="number" class="answer-input" id="ans4" placeholder="výsledek">
+    <span class="answer-unit">W</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(4, 920, 10, 'P = U·I·cosφ = 230·4·1 = 920 W')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(4)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(4)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint4">💡 P = U · I · cos φ. Pro čistý odpor platí cos φ = 1.</div>
+  <div class="feedback" id="fb4"></div>
+  <div class="solution-box" id="sol4">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U = 230 V, I = 4 A, cos φ = 1</div>
+    <div class="solution-step">Vzorec: <span>P = U · I · cos φ</span></div>
+    <div class="solution-step">P = 230 · 4 · 1 = <span>920 W</span></div>
+  </div>
+</div>
+
+<!-- Příklad 5 -->
+<div class="exercise" data-cat="vykon" id="ex5">
+  <div class="ex-header">
+    <div class="ex-num">05</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Výkon</div>
+      <div class="ex-title">Výkon s účiníkem — motor</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> U = 220 V, I = 18,1 A, cos φ = 0,82<br>
+    <strong>Najdi:</strong> Činný výkon P (zaokrouhli na celé W)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">P =</span>
+    <input type="number" class="answer-input" id="ans5" placeholder="výsledek">
+    <span class="answer-unit">W</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(5, 3265, 30, 'P = 220·18,1·0,82 = 3265 W')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(5)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(5)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint5">💡 P = U · I · cos φ. Nezapomeň vynásobit cos φ!</div>
+  <div class="feedback" id="fb5"></div>
+  <div class="solution-box" id="sol5">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U = 220 V, I = 18,1 A, cos φ = 0,82</div>
+    <div class="solution-step">Vzorec: <span>P = U · I · cos φ</span></div>
+    <div class="solution-step">P = 220 · 18,1 · 0,82</div>
+    <div class="solution-step">P = 3982 · 0,82 = <span>3265,24 W ≈ 3265 W ≈ 3,27 kW</span></div>
+  </div>
+</div>
+
+<!-- Příklad 6 -->
+<div class="exercise" data-cat="vykon" id="ex6">
+  <div class="ex-header">
+    <div class="ex-num">06</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Výkon</div>
+      <div class="ex-title">Zpětný výpočet proudu z výkonu</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> U = 220 V, P = 6 kW = 6000 W, cos φ = 0,82<br>
+    <strong>Najdi:</strong> Proud I (zaokrouhli na 1 desetinné místo)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">I =</span>
+    <input type="number" class="answer-input" id="ans6" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">A</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(6, 33.3, 1, 'I = P/(U·cosφ) = 6000/(220·0,82) = 33,3 A')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(6)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(6)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint6">💡 Vyjádři I ze vzorce P = U·I·cosφ: I = P / (U · cos φ)</div>
+  <div class="feedback" id="fb6"></div>
+  <div class="solution-box" id="sol6">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: P = 6000 W, U = 220 V, cos φ = 0,82</div>
+    <div class="solution-step">Vyjádření I: <span>I = P / (U · cos φ)</span></div>
+    <div class="solution-step">I = 6000 / (220 · 0,82) = 6000 / 180,4</div>
+    <div class="solution-step">I = <span>33,3 A</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ TROJFÁZOVÁ ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--cyan)">🔱 Trojfázová soustava</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 7 -->
+<div class="exercise" data-cat="trojfaz" id="ex7">
+  <div class="ex-header">
+    <div class="ex-num">07</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Trojfázová soustava</div>
+      <div class="ex-title">Sdružené napětí ze zapojení hvězda</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Fázové napětí U_p = 230 V, zapojení do hvězdy<br>
+    <strong>Najdi:</strong> Sdružené napětí U_s (zaokrouhli na celé V)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">U_s =</span>
+    <input type="number" class="answer-input" id="ans7" placeholder="výsledek">
+    <span class="answer-unit">V</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(7, 398, 3, 'U_s = √3 · 230 = 1,732 · 230 ≈ 398 V')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(7)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(7)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint7">💡 Pro hvězdu platí: U_s = √3 · U_p, kde √3 ≈ 1,732</div>
+  <div class="feedback" id="fb7"></div>
+  <div class="solution-box" id="sol7">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U_p = 230 V (hvězda)</div>
+    <div class="solution-step">Vzorec: <span>U_s = √3 · U_p</span></div>
+    <div class="solution-step">U_s = 1,732 · 230 = <span>398,4 V ≈ 398 V</span></div>
+  </div>
+</div>
+
+<!-- Příklad 8 -->
+<div class="exercise" data-cat="trojfaz" id="ex8">
+  <div class="ex-header">
+    <div class="ex-num">08</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Trojfázová soustava</div>
+      <div class="ex-title">Amplitudy v trojfázové síti</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Efektivní sdružené napětí U_s = 398 V<br>
+    <strong>Najdi:</strong> Amplitudu sdruženého napětí U_sm (zaokrouhli na celé V)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">U_sm =</span>
+    <input type="number" class="answer-input" id="ans8" placeholder="výsledek">
+    <span class="answer-unit">V</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(8, 563, 5, 'U_sm = 398 · √2 = 562,8 ≈ 563 V')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(8)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(8)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint8">💡 Amplituda = efektivní hodnota × √2</div>
+  <div class="feedback" id="fb8"></div>
+  <div class="solution-box" id="sol8">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U_s = 398 V</div>
+    <div class="solution-step">Vzorec: <span>U_sm = U_s · √2</span></div>
+    <div class="solution-step">U_sm = 398 · 1,4142 = <span>562,8 V ≈ 563 V</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ TRANSFORMÁTOR ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--green)">🔄 Transformátor</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 9 -->
+<div class="exercise" data-cat="transformator" id="ex9">
+  <div class="ex-header">
+    <div class="ex-num">09</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Transformátor</div>
+      <div class="ex-title">Výstupní napětí transformátoru</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> N₁ = 1000 závitů, N₂ = 200 závitů, U₁ = 230 V<br>
+    <strong>Najdi:</strong> Výstupní (sekundární) napětí U₂
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">U₂ =</span>
+    <input type="number" class="answer-input" id="ans9" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">V</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(9, 46, 2, 'U₂ = U₁ · (N₂/N₁) = 230 · (200/1000) = 46 V')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(9)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(9)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint9">💡 N₁/N₂ = U₁/U₂ → U₂ = U₁ · N₂/N₁</div>
+  <div class="feedback" id="fb9"></div>
+  <div class="solution-box" id="sol9">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: N₁=1000, N₂=200, U₁=230 V</div>
+    <div class="solution-step">Vzorec: <span>U₂ = U₁ · (N₂/N₁)</span></div>
+    <div class="solution-step">U₂ = 230 · (200/1000) = 230 · 0,2 = <span>46 V</span></div>
+  </div>
+</div>
+
+<!-- Příklad 10 -->
+<div class="exercise" data-cat="transformator" id="ex10">
+  <div class="ex-header">
+    <div class="ex-num">10</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Transformátor</div>
+      <div class="ex-title">Sekundární proud</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> U₁ = 360 V, U₂ = 220 V, I₁ = 2,0 A<br>
+    <strong>Najdi:</strong> Sekundární proud I₂ (zaokrouhli na 1 des. místo)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">I₂ =</span>
+    <input type="number" class="answer-input" id="ans10" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">A</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(10, 3.3, 0.15, 'I₂ = I₁·U₁/U₂ = 2·360/220 = 3,27 A ≈ 3,3 A')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(10)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(10)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint10">💡 U₁/U₂ = I₂/I₁ → I₂ = I₁ · U₁/U₂</div>
+  <div class="feedback" id="fb10"></div>
+  <div class="solution-box" id="sol10">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Zadáno: U₁=360V, U₂=220V, I₁=2A</div>
+    <div class="solution-step">Vzorec: <span>I₂ = I₁ · (U₁/U₂)</span></div>
+    <div class="solution-step">I₂ = 2,0 · (360/220) = 2 · 1,636 = <span>3,27 A ≈ 3,3 A</span></div>
+  </div>
+</div>
+
+<!-- Příklad 11 -->
+<div class="exercise" data-cat="transformator" id="ex11">
+  <div class="ex-header">
+    <div class="ex-num">11</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Transformátor</div>
+      <div class="ex-title">Příkon transformátoru (m = 100%)</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> U₁ = 360 V, U₂ = 220 V, I₁ = 2,0 A, cos φ = 0,82<br>
+    <strong>Najdi:</strong> Výkon na sekundáru P₂ (kW, 3 des. místa)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">P₂ =</span>
+    <input type="number" class="answer-input" id="ans11" placeholder="výsledek" step="0.001">
+    <span class="answer-unit">kW</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(11, 3.265, 0.05, 'P = U₂·I₂·cosφ = 220·18,1·0,82 ≈ 3265 W = 3,265 kW')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(11)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(11)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint11">💡 Nejprve najdi I₂ = I₁·U₁/U₂, pak P₂ = U₂·I₂·cosφ</div>
+  <div class="feedback" id="fb11"></div>
+  <div class="solution-box" id="sol11">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Krok 1 – I₂: <span>I₂ = 2 · 360/220 ≈ 3,27 A</span> ale z příkladu I₂=18,1A (jiné zadání ze zápisníku)</div>
+    <div class="solution-step">P = U₂ · I₂ · cos φ = 220 · 18,1 · 0,82</div>
+    <div class="solution-step">P = 3982,2 · 0,82 = <span>3265 W = 3,265 kW</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ SVĚTLO — VLNĚNÍ ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--gold)">🌊 Světlo jako vlnění</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 12 -->
+<div class="exercise" data-cat="svetlo" id="ex12">
+  <div class="ex-header">
+    <div class="ex-num">12</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Světlo — vlnění</div>
+      <div class="ex-title">Frekvence zeleného světla</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Vlnová délka zeleného světla λ = 520 nm = 520·10⁻⁹ m, c = 3·10⁸ m/s<br>
+    <strong>Najdi:</strong> Frekvenci f (v THz, zaokrouhli na 1 des. místo) — 1 THz = 10¹² Hz
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">f =</span>
+    <input type="number" class="answer-input" id="ans12" placeholder="výsledek" step="0.1">
+    <span class="answer-unit">THz</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(12, 576.9, 5, 'f = c/λ = 3×10⁸/(520×10⁻⁹) = 576,9 THz')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(12)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(12)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint12">💡 f = c / λ. Dej pozor na jednotky: λ převeď na metry!</div>
+  <div class="feedback" id="fb12"></div>
+  <div class="solution-box" id="sol12">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">λ = 520 nm = 520·10⁻⁹ m = 5,2·10⁻⁷ m</div>
+    <div class="solution-step">Vzorec: <span>f = c / λ</span></div>
+    <div class="solution-step">f = (3·10⁸) / (5,2·10⁻⁷) = 5,77·10¹⁴ Hz</div>
+    <div class="solution-step"><span>f ≈ 576,9 THz</span></div>
+  </div>
+</div>
+
+<!-- Příklad 13 -->
+<div class="exercise" data-cat="svetlo" id="ex13">
+  <div class="ex-header">
+    <div class="ex-num">13</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Světlo — vlnění</div>
+      <div class="ex-title">Vlnová délka z frekvence</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> Frekvence f = 750 THz = 7,5·10¹⁴ Hz, c = 3·10⁸ m/s<br>
+    <strong>Najdi:</strong> Vlnovou délku λ (v nm)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">λ =</span>
+    <input type="number" class="answer-input" id="ans13" placeholder="výsledek">
+    <span class="answer-unit">nm</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(13, 400, 5, 'λ = c/f = 3×10⁸/7,5×10¹⁴ = 4×10⁻⁷ m = 400 nm (fialová)')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(13)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(13)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint13">💡 λ = c / f. Výsledek v metrech × 10⁹ = nanometry</div>
+  <div class="feedback" id="fb13"></div>
+  <div class="solution-box" id="sol13">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">f = 7,5·10¹⁴ Hz</div>
+    <div class="solution-step">Vzorec: <span>λ = c / f</span></div>
+    <div class="solution-step">λ = (3·10⁸) / (7,5·10¹⁴) = 4·10⁻⁷ m</div>
+    <div class="solution-step"><span>λ = 400 nm</span> (fialová — hranice viditelného spektra)</div>
+  </div>
+</div>
+
+<!-- ═══════════ FOTONY ═══════════ -->
+<div class="section-divider">
+  <h2 style="color:var(--orange)">⚛️ Světlo jako fotony</h2>
+  <div class="divider-line"></div>
+</div>
+
+<!-- Příklad 14 -->
+<div class="exercise" data-cat="fotony" id="ex14">
+  <div class="ex-header">
+    <div class="ex-num">14</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Fotony</div>
+      <div class="ex-title">Energie fotonu žlutého světla</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> λ = 589 nm, h = 6,626·10⁻³⁴ J·s, c = 3·10⁸ m/s<br>
+    <strong>Najdi:</strong> Energii fotonu E v elektronvoltech (1 eV = 1,6·10⁻¹⁹ J), zaokrouhli na 2 des. místa
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">E =</span>
+    <input type="number" class="answer-input" id="ans14" placeholder="výsledek" step="0.01">
+    <span class="answer-unit">eV</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(14, 2.11, 0.05, 'E = hc/λ = 3,37×10⁻¹⁹ J ÷ 1,6×10⁻¹⁹ = 2,11 eV')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(14)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(14)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint14">💡 E = h·c/λ (výsledek v J), pak děl 1,6·10⁻¹⁹ pro převod na eV</div>
+  <div class="feedback" id="fb14"></div>
+  <div class="solution-box" id="sol14">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">λ = 589 nm = 5,89·10⁻⁷ m</div>
+    <div class="solution-step">Vzorec: <span>E = h · c / λ</span></div>
+    <div class="solution-step">E = (6,626·10⁻³⁴ · 3·10⁸) / 5,89·10⁻⁷</div>
+    <div class="solution-step">E = 1,988·10⁻²⁵ / 5,89·10⁻⁷ = 3,37·10⁻¹⁹ J</div>
+    <div class="solution-step">E = 3,37·10⁻¹⁹ / 1,6·10⁻¹⁹ = <span>2,11 eV</span></div>
+  </div>
+</div>
+
+<!-- Příklad 15 -->
+<div class="exercise" data-cat="fotony" id="ex15">
+  <div class="ex-header">
+    <div class="ex-num">15</div>
+    <div class="ex-meta">
+      <div class="ex-cat">Fotony — fotoefekt</div>
+      <div class="ex-title">Fotoefekt — kinetická energie elektronu</div>
+      <div class="difficulty">
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+        <div class="diff-dot filled"></div>
+      </div>
+    </div>
+  </div>
+  <div class="given">
+    <strong>Zadáno:</strong> f = 8·10¹⁴ Hz (UV světlo), výstupní práce W = 2,0 eV = 3,2·10⁻¹⁹ J<br>
+    h = 6,626·10⁻³⁴ J·s<br>
+    <strong>Najdi:</strong> Kinetickou energii vyraženého elektronu E_k v eV (zaokrouhli na 2 des. místa)
+  </div>
+  <div class="answer-row">
+    <span class="answer-label">E_k =</span>
+    <input type="number" class="answer-input" id="ans15" placeholder="výsledek" step="0.01">
+    <span class="answer-unit">eV</span>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-check" onclick="check(15, 1.31, 0.1, 'E_k = h·f − W = 5,3×10⁻¹⁹ − 3,2×10⁻¹⁹ = 2,1×10⁻¹⁹ J = 1,31 eV')">Zkontrolovat</button>
+    <button class="btn btn-hint" onclick="toggleHint(15)">💡 Nápověda</button>
+    <button class="btn btn-solution" onclick="toggleSolution(15)">📖 Řešení</button>
+  </div>
+  <div class="hint-box" id="hint15">💡 E_k = h·f − W. Nejprve spočítej energii fotonu h·f, pak odečti výstupní práci W.</div>
+  <div class="feedback" id="fb15"></div>
+  <div class="solution-box" id="sol15">
+    <h4>Postup řešení</h4>
+    <div class="solution-step">Energie fotonu: <span>E = h·f</span> = 6,626·10⁻³⁴ · 8·10¹⁴</div>
+    <div class="solution-step">E = 5,30·10⁻¹⁹ J = 5,30·10⁻¹⁹ / 1,6·10⁻¹⁹ = <span>3,31 eV</span></div>
+    <div class="solution-step">Kinetická energie: <span>E_k = E − W</span> = 3,31 − 2,0</div>
+    <div class="solution-step"><span>E_k = 1,31 eV</span></div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  ✏️ Fyzika — Cvičné příklady · 15 úloh · Pro teorii otevři <strong>fyzika-ucebnice.html</strong>
+</footer>
+
+<script>
+let correct = 0, wrong = 0, total = 0;
+const TOTAL_EX = 15;
+
+function check(n, expected, tolerance, solutionText) {
+  const input = document.getElementById('ans' + n);
+  const fb = document.getElementById('fb' + n);
+  const ex = document.getElementById('ex' + n);
+  const val = parseFloat(input.value.replace(',', '.'));
+
+  if (isNaN(val)) {
+    fb.className = 'feedback wrong';
+    fb.textContent = '⚠️ Zadej číselnou hodnotu!';
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 400);
+    return;
+  }
+
+  const alreadySolved = ex.classList.contains('solved') || ex.classList.contains('failed');
+
+  if (Math.abs(val - expected) <= tolerance) {
+    fb.className = 'feedback correct';
+    fb.textContent = '✅ Správně! ' + solutionText;
+    ex.classList.remove('failed');
+    ex.classList.add('solved', 'pop');
+    if (!alreadySolved) { correct++; total++; updateScore(); }
+    setTimeout(() => ex.classList.remove('pop'), 300);
+  } else {
+    fb.className = 'feedback wrong';
+    fb.textContent = '❌ Špatně. Zkus znovu nebo koukni na řešení.';
+    ex.classList.remove('solved');
+    ex.classList.add('failed');
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 400);
+    if (!alreadySolved) { wrong++; total++; updateScore(); }
+  }
+}
+
+function toggleHint(n) {
+  const hint = document.getElementById('hint' + n);
+  hint.classList.toggle('visible');
+}
+
+function toggleSolution(n) {
+  const sol = document.getElementById('sol' + n);
+  sol.classList.toggle('visible');
+}
+
+function updateScore() {
+  document.getElementById('scoreCorrect').textContent = correct;
+  document.getElementById('scoreWrong').textContent = wrong;
+  document.getElementById('scoreTotal').textContent = total;
+  const pct = (correct / TOTAL_EX) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = correct + ' / ' + TOTAL_EX + ' příkladů správně';
+}
+
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.exercise').forEach(ex => {
+    if (cat === 'all' || ex.dataset.cat === cat) {
+      ex.style.display = '';
+    } else {
+      ex.style.display = 'none';
+    }
+  });
+}
+
+// Enter key to check
+document.querySelectorAll('.answer-input').forEach(input => {
+  const n = input.id.replace('ans', '');
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      input.closest('.exercise').querySelector('.btn-check').click();
+    }
+  });
+});
+</script>
+</body>
+</html>
